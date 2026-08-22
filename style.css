@@ -135,18 +135,26 @@ body {
 
 .lang-btn {
   background: transparent;
-  border: none;
-  font-size: 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 0.2rem 0.35rem;
+  font-size: 1.4rem;
   cursor: pointer;
-  transition: transform var(--transition);
+  transition: transform var(--transition), border-color var(--transition), background var(--transition);
 }
 
 .lang-btn:hover {
-  transform: scale(1.2);
+  transform: scale(1.15);
+}
+
+.lang-btn.active-lang {
+  border-color: rgba(184, 134, 11, 0.6);
+  background: rgba(184, 134, 11, 0.15);
+  box-shadow: 0 0 10px rgba(184, 134, 11, 0.25);
 }
 
 .lang-indicator {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--color-muted);
   user-select: none;
 }

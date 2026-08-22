@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -53,15 +53,18 @@
         <form id="contactForm" novalidate>
           <div class="form-group">
             <label for="cName" data-i18n="contactName">Full Name</label>
-            <input type="text" id="cName" name="name" required autocomplete="name" placeholder="John Smith" />
+            <input type="text" id="cName" name="name" required autocomplete="name"
+              placeholder="John Smith" data-i18n-placeholder="contactNamePlaceholder" />
           </div>
           <div class="form-group">
             <label for="cEmail" data-i18n="contactEmail">Email</label>
-            <input type="email" id="cEmail" name="email" required autocomplete="email" placeholder="john@example.com" />
+            <input type="email" id="cEmail" name="email" required autocomplete="email"
+              placeholder="john@example.com" data-i18n-placeholder="contactEmailPlaceholder" />
           </div>
           <div class="form-group">
             <label for="cMessage" data-i18n="contactMessage">Message</label>
-            <textarea id="cMessage" name="message" rows="5" required placeholder="How can we help you?"></textarea>
+            <textarea id="cMessage" name="message" rows="5" required
+              placeholder="How can we help you?" data-i18n-placeholder="contactMessagePlaceholder"></textarea>
           </div>
           <button type="submit" class="cta-button" data-i18n="contactSubmit">Send Message</button>
         </form>

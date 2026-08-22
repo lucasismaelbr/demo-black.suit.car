@@ -14,11 +14,13 @@ async function loadTranslations(lang) {
     const t = await response.json();
     currentTranslations = t;
 
+    // Apply text translations
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.dataset.i18n;
       if (t[key] !== undefined) el.textContent = t[key];
     });
 
+    // Apply placeholder translations
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.dataset.i18nPlaceholder;
       if (t[key] !== undefined) el.placeholder = t[key];
@@ -33,8 +35,24 @@ async function loadTranslations(lang) {
       }
     }
 
-    // Update time availability status pill text for current language
+    // Update time availability status pill text for current language (if on home page)
     updateTimeStatusUI();
+
+    // Persist language choice across pages
+    try {
+      localStorage.setItem('preferredLang', lang);
+    } catch (_) {}
+
+    // Update active visual state for language switcher buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      if (btn.dataset.lang === lang) {
+        btn.classList.add('active-lang');
+        btn.setAttribute('aria-pressed', 'true');
+      } else {
+        btn.classList.remove('active-lang');
+        btn.setAttribute('aria-pressed', 'false');
+      }
+    });
 
     document.documentElement.lang = lang;
   } catch (e) {
@@ -331,68 +349,80 @@ function hideBusyModal() {
   document.body.classList.remove('modal-open');
 }
 
-// Form submission handler with complete validation (Date + Time Availability)
+// Form submission handler with complete validation (Date + Time Availability) & Contact Form
 function initForm() {
   const form = document.getElementById('rideForm');
-  if (!form) return;
+  if (form) {
+    // Listen for time selection changes
+    ['pickupHour', 'pickupMinute', 'pickupAmPm'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', updateTimeStatusUI);
+      }
+    });
 
-  // Listen for time selection changes
-  ['pickupHour', 'pickupMinute', 'pickupAmPm'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('change', updateTimeStatusUI);
+    // Modal close listeners
+    const closeBtn = document.getElementById('busyModalClose');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', hideBusyModal);
     }
-  });
 
-  // Modal close listeners
-  const closeBtn = document.getElementById('busyModalClose');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', hideBusyModal);
-  }
+    const modal = document.getElementById('busyModal');
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) hideBusyModal();
+      });
+    }
 
-  const modal = document.getElementById('busyModal');
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) hideBusyModal();
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && modal.classList.contains('is-active')) {
+        hideBusyModal();
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // 1. Validate Date
+      const dateInput = document.getElementById('date');
+      if (dateInput) {
+        const isDateValid = checkAndDisplayDateError(dateInput);
+        if (!isDateValid) {
+          dateInput.focus();
+          return;
+        }
+      }
+
+      // 2. Validate Time Slot Availability
+      const timeCheck = getTimeSlotAvailability();
+      if (timeCheck.status === 'occupied') {
+        showBusyModal(timeCheck.titleKey, timeCheck.msgKey);
+        return;
+      }
+
+      if (timeCheck.status === 'outside_hours') {
+        showBusyModal(timeCheck.titleKey, timeCheck.msgKey);
+        return;
+      }
+
+      // 3. Success
+      const successMsg = currentTranslations['formSuccess'] ||
+        'Thank you! Your ride request has been submitted. We will contact you shortly to confirm.';
+      alert(successMsg);
     });
   }
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && modal.classList.contains('is-active')) {
-      hideBusyModal();
-    }
-  });
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    // 1. Validate Date
-    const dateInput = document.getElementById('date');
-    if (dateInput) {
-      const isDateValid = checkAndDisplayDateError(dateInput);
-      if (!isDateValid) {
-        dateInput.focus();
-        return;
-      }
-    }
-
-    // 2. Validate Time Slot Availability
-    const timeCheck = getTimeSlotAvailability();
-    if (timeCheck.status === 'occupied') {
-      showBusyModal(timeCheck.titleKey, timeCheck.msgKey);
-      return;
-    }
-
-    if (timeCheck.status === 'outside_hours') {
-      showBusyModal(timeCheck.titleKey, timeCheck.msgKey);
-      return;
-    }
-
-    // 3. Success
-    const successMsg = currentTranslations['formSuccess'] ||
-      'Thank you! Your ride request has been submitted. We will contact you shortly to confirm.';
-    alert(successMsg);
-  });
+  // Handle Contact Page Form
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const successMsg = currentTranslations['contactSuccess'] ||
+        'Thank you for your message! Our team will contact you shortly.';
+      alert(successMsg);
+      contactForm.reset();
+    });
+  }
 }
 
 // Mobile hamburger menu toggle
@@ -448,8 +478,16 @@ function initMobileMenu() {
 
 // Init
 document.addEventListener('DOMContentLoaded', () => {
+  let initialLang = defaultLang;
+  try {
+    const saved = localStorage.getItem('preferredLang');
+    if (saved && (saved === 'en' || saved === 'pt')) {
+      initialLang = saved;
+    }
+  } catch (_) {}
+
   initLangSwitcher();
-  loadTranslations(defaultLang);
+  loadTranslations(initialLang);
   setYear();
   initForm();
   initMobileMenu();
