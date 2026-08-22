@@ -615,6 +615,40 @@ function initMobileMenu() {
   });
 }
 
+// FAQ Accordion
+function initFaqAccordion() {
+  const accordion = document.getElementById('faqAccordion');
+  if (!accordion) return;
+
+  const items = accordion.querySelectorAll('.faq-item');
+  items.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    if (!question) return;
+
+    question.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+
+      // Close other open items
+      items.forEach(otherItem => {
+        if (otherItem !== item) {
+          otherItem.classList.remove('is-open');
+          const otherBtn = otherItem.querySelector('.faq-question');
+          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Toggle current item
+      if (isOpen) {
+        item.classList.remove('is-open');
+        question.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('is-open');
+        question.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+}
+
 // Init
 document.addEventListener('DOMContentLoaded', () => {
   let initialLang = defaultLang;
@@ -630,6 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setYear();
   initForm();
   initMobileMenu();
+  initFaqAccordion();
 
   const dateInput = document.getElementById('date');
   if (dateInput) maskDate(dateInput);
