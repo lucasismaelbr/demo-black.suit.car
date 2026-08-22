@@ -61,36 +61,76 @@
               data-i18n-placeholder="dropoffPlaceholder"
               placeholder="Enter drop-off location" />
           </div>
-          <div class="form-group">
-            <label for="passengers" data-i18n="passengersLabel">Number of Passengers</label>
-            <input type="number" id="passengers" name="passengers"
-              min="1" max="4" value="1" required
-              autocomplete="off" />
+          <div class="form-row">
+            <div class="form-group form-group--half">
+              <label for="passengers" data-i18n="passengersLabel">Number of Passengers</label>
+              <input type="number" id="passengers" name="passengers"
+                min="1" max="4" value="1" required
+                autocomplete="off" />
+            </div>
+            <div class="form-group form-group--half">
+              <label for="tripType" data-i18n="tripTypeLabel">Trip Type</label>
+              <select id="tripType" name="tripType" required>
+                <option value="ONE_WAY_RIDE" data-i18n="tripOptionOneWayRide">ONE WAY RIDE</option>
+                <option value="ONE_WAY_TRIP" data-i18n="tripOptionOneWayTrip">ONE WAY TRIP</option>
+                <option value="ROUND_TRIP_WITH_WAIT" data-i18n="tripOptionRoundTripWait">ROUND TRIP WITH DESTINATION WAIT</option>
+                <option value="SCHEDULED_RETURN_TRIP" data-i18n="tripOptionScheduledReturn">SCHEDULED RETURN TRIP</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="tripType" data-i18n="tripTypeLabel">Trip Type</label>
-            <select id="tripType" name="tripType" required>
-              <option value="ONE_WAY_RIDE" data-i18n="tripOptionOneWayRide">ONE WAY RIDE</option>
-              <option value="ONE_WAY_TRIP" data-i18n="tripOptionOneWayTrip">ONE WAY TRIP</option>
-              <option value="ROUND_TRIP_WITH_WAIT" data-i18n="tripOptionRoundTripWait">ROUND TRIP WITH DESTINATION WAIT</option>
-              <option value="SCHEDULED_RETURN_TRIP" data-i18n="tripOptionScheduledReturn">SCHEDULED RETURN TRIP</option>
-            </select>
+
+          <div class="form-row">
+            <div class="form-group form-group--date">
+              <label for="date" data-i18n="dateLabel">Departure Date (MM/DD/YYYY)</label>
+              <input type="text" id="date" name="date"
+                placeholder="MM/DD/YYYY"
+                data-i18n-placeholder="datePlaceholder"
+                autocomplete="off"
+                inputmode="numeric"
+                required />
+              <span class="field-error" id="dateError" aria-live="polite"></span>
+            </div>
+
+            <div class="form-group form-group--time">
+              <label data-i18n="timeLabel">Pickup Time (ET)</label>
+              <div class="time-selectors">
+                <select id="pickupHour" aria-label="Hour">
+                  <option value="01">01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                  <option value="04">04</option>
+                  <option value="05">05</option>
+                  <option value="06">06</option>
+                  <option value="07">07</option>
+                  <option value="08">08</option>
+                  <option value="09" selected>09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+                <span class="time-separator">:</span>
+                <select id="pickupMinute" aria-label="Minute">
+                  <option value="00" selected>00</option>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
+                </select>
+                <select id="pickupAmPm" aria-label="AM or PM">
+                  <option value="AM" selected>AM</option>
+                  <option value="PM">PM</option>
+                </select>
+              </div>
+              <div class="time-status-pill" id="timeStatus" aria-live="polite"></div>
+              <span class="field-error" id="timeError" aria-live="polite"></span>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="date" data-i18n="dateLabel">Departure Date (MM/DD/YYYY)</label>
-            <input type="text" id="date" name="date"
-              placeholder="MM/DD/YYYY"
-              data-i18n-placeholder="datePlaceholder"
-              autocomplete="off"
-              inputmode="numeric"
-              required />
-            <span class="field-error" id="dateError" aria-live="polite"></span>
-          </div>
+
           <div class="form-group">
             <label for="specialRequests" data-i18n="specialRequestsLabel">Observações (Special Requests)</label>
             <textarea id="specialRequests" name="specialRequests" rows="3" placeholder="Any special requests?" data-i18n-placeholder="specialRequestsPlaceholder"></textarea>
           </div>
           <button type="submit" class="cta-button" data-i18n="ctaButton">Check Black Suit Price</button>
+          <p class="booking-notice" data-i18n="bookingReviewNotice">Booking requests are reviewed daily between 7:00 AM and 9:00 PM ET.</p>
         </form>
       </section>
 
@@ -201,7 +241,19 @@
     </div>
   </footer>
 
+  <!-- Busy Time Slot Alert Modal -->
+  <div class="modal-overlay" id="busyModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-icon">⚠️</div>
+      <h3 class="modal-title" id="busyModalTitle" data-i18n="timeOccupiedAlertTitle">Selected Time is Occupied</h3>
+      <p class="modal-message" id="busyModalMessage" data-i18n="timeOccupiedAlertMessage">The requested pickup time is currently marked as OCCUPIED on the weekly calendar. Please check the calendar on the right and select an open time slot.</p>
+      <div class="modal-actions">
+        <button type="button" class="cta-button modal-btn" id="busyModalClose">Choose Another Time</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Custom JS for i18n, date mask, and Google Maps Autocomplete -->
-<script src="script.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>

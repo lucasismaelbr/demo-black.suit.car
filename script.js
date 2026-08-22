@@ -33,6 +33,9 @@ async function loadTranslations(lang) {
       }
     }
 
+    // Update time availability status pill text for current language
+    updateTimeStatusUI();
+
     document.documentElement.lang = lang;
   } catch (e) {
     console.error('i18n error:', e);
@@ -211,14 +214,159 @@ function setYear() {
   if (el) el.textContent = new Date().getFullYear();
 }
 
-// Form submission handler with complete validation
+// Time Slot Availability Checker
+function getTimeSlotAvailability() {
+  const hourEl   = document.getElementById('pickupHour');
+  const minuteEl = document.getElementById('pickupMinute');
+  const ampmEl   = document.getElementById('pickupAmPm');
+
+  if (!hourEl || !minuteEl || !ampmEl) return { status: 'available' };
+
+  let hour   = parseInt(hourEl.value, 10);
+  let minute = parseInt(minuteEl.value, 10);
+  let ampm   = ampmEl.value;
+
+  // Convert to 24h format in minutes from midnight
+  let h24 = hour;
+  if (ampm === 'PM' && h24 < 12) h24 += 12;
+  if (ampm === 'AM' && h24 === 12) h24 = 0;
+  const timeMinutes = h24 * 60 + minute;
+
+  // 1. Check occupied slot: 4:00 PM to 5:30 PM (16:00 to 17:30 = 960 to 1050 min)
+  if (timeMinutes >= 960 && timeMinutes <= 1050) {
+    return {
+      status: 'occupied',
+      titleKey: 'timeOccupiedAlertTitle',
+      msgKey: 'timeOccupiedAlertMessage',
+      pillKey: 'timeStatusOccupied'
+    };
+  }
+
+  // 2. Check overnight occupied slot: 10:00 PM to 4:00 AM (22:00 to 04:00 = >= 1320 or <= 240 min)
+  if (timeMinutes >= 1320 || timeMinutes <= 240) {
+    return {
+      status: 'occupied',
+      titleKey: 'timeOccupiedAlertTitle',
+      msgKey: 'timeOccupiedAlertMessage',
+      pillKey: 'timeStatusOccupied'
+    };
+  }
+
+  // 3. Outside standard operating hours: 4:01 AM to 4:59 AM
+  if (timeMinutes < 300) {
+    return {
+      status: 'outside_hours',
+      titleKey: 'timeOccupiedAlertTitle',
+      msgKey: 'timeOutsideAlertMessage',
+      pillKey: 'timeStatusOutsideHours'
+    };
+  }
+
+  return {
+    status: 'available',
+    pillKey: 'timeStatusAvailable'
+  };
+}
+
+// Update the live time availability badge
+function updateTimeStatusUI() {
+  const statusEl = document.getElementById('timeStatus');
+  const errorEl  = document.getElementById('timeError');
+  const selectorsWrap = document.querySelector('.time-selectors');
+  if (!statusEl) return;
+
+  const availability = getTimeSlotAvailability();
+
+  statusEl.className = 'time-status-pill';
+  if (selectorsWrap) selectorsWrap.classList.remove('has-error');
+
+  if (availability.status === 'available') {
+    statusEl.classList.add('is-available');
+    statusEl.textContent = currentTranslations[availability.pillKey] || '✓ Time slot available';
+    if (errorEl) {
+      errorEl.textContent = '';
+      errorEl.classList.remove('is-visible');
+    }
+  } else if (availability.status === 'occupied') {
+    statusEl.classList.add('is-occupied');
+    statusEl.textContent = currentTranslations[availability.pillKey] || '⚠️ Time slot occupied';
+    if (selectorsWrap) selectorsWrap.classList.add('has-error');
+    if (errorEl) {
+      errorEl.textContent = currentTranslations['timeOccupiedAlertMessage'] || 'Selected time is occupied on calendar.';
+      errorEl.classList.add('is-visible');
+    }
+  } else {
+    statusEl.classList.add('is-outside');
+    statusEl.textContent = currentTranslations[availability.pillKey] || 'ℹ️ Outside regular hours (5 AM – 10 PM ET)';
+    if (errorEl) {
+      errorEl.textContent = currentTranslations['timeOutsideAlertMessage'] || '';
+      errorEl.classList.add('is-visible');
+    }
+  }
+}
+
+// Modal handling for occupied time slots
+function showBusyModal(titleKey, messageKey) {
+  const modal = document.getElementById('busyModal');
+  const title = document.getElementById('busyModalTitle');
+  const msg   = document.getElementById('busyModalMessage');
+  if (!modal) return;
+
+  if (title) title.textContent = currentTranslations[titleKey] || 'Selected Time is Occupied';
+  if (msg)   msg.textContent   = currentTranslations[messageKey] || 'The requested pickup time is currently marked as OCCUPIED on the weekly calendar. Please check the calendar on the right and select an open time slot.';
+
+  modal.classList.add('is-active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+
+  const closeBtn = document.getElementById('busyModalClose');
+  if (closeBtn) closeBtn.focus();
+}
+
+function hideBusyModal() {
+  const modal = document.getElementById('busyModal');
+  if (!modal) return;
+  modal.classList.remove('is-active');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+}
+
+// Form submission handler with complete validation (Date + Time Availability)
 function initForm() {
   const form = document.getElementById('rideForm');
   if (!form) return;
 
+  // Listen for time selection changes
+  ['pickupHour', 'pickupMinute', 'pickupAmPm'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('change', updateTimeStatusUI);
+    }
+  });
+
+  // Modal close listeners
+  const closeBtn = document.getElementById('busyModalClose');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', hideBusyModal);
+  }
+
+  const modal = document.getElementById('busyModal');
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) hideBusyModal();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.classList.contains('is-active')) {
+      hideBusyModal();
+    }
+  });
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
+    // 1. Validate Date
     const dateInput = document.getElementById('date');
     if (dateInput) {
       const isDateValid = checkAndDisplayDateError(dateInput);
@@ -228,6 +376,19 @@ function initForm() {
       }
     }
 
+    // 2. Validate Time Slot Availability
+    const timeCheck = getTimeSlotAvailability();
+    if (timeCheck.status === 'occupied') {
+      showBusyModal(timeCheck.titleKey, timeCheck.msgKey);
+      return;
+    }
+
+    if (timeCheck.status === 'outside_hours') {
+      showBusyModal(timeCheck.titleKey, timeCheck.msgKey);
+      return;
+    }
+
+    // 3. Success
     const successMsg = currentTranslations['formSuccess'] ||
       'Thank you! Your ride request has been submitted. We will contact you shortly to confirm.';
     alert(successMsg);
