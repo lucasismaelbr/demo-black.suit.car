@@ -300,6 +300,162 @@ body {
   color: var(--color-primary);
 }
 
+/* =====================================================
+   TRUST & CREDIBILITY STRIP
+   ===================================================== */
+.trust-strip {
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(184,134,11,0.2);
+  border-bottom: 1px solid rgba(184,134,11,0.2);
+  margin: 3rem 0 2rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.trust-strip-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.trust-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: border-color var(--transition), background var(--transition);
+}
+.trust-badge-item:hover {
+  border-color: rgba(184,134,11,0.4);
+  background: rgba(184,134,11,0.05);
+}
+
+.trust-badge-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.trust-badge-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.35;
+}
+
+/* =====================================================
+   TRUST & CREDIBILITY VISUAL SHOWCASE
+   ===================================================== */
+.trust-showcase {
+  max-width: 1400px;
+  margin: 3rem auto 4rem;
+  padding: 0 2rem;
+}
+
+.trust-showcase-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.trust-showcase-header h2 {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.04em;
+}
+
+.trust-showcase-header p {
+  font-size: 1.05rem;
+  color: var(--color-muted);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.trust-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.trust-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(184,134,11,0.25);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.trust-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-primary);
+  box-shadow: 0 16px 36px rgba(184,134,11,0.2);
+}
+
+.trust-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #000;
+}
+
+.trust-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.trust-card:hover .trust-card-media img {
+  transform: scale(1.05);
+}
+
+.trust-card-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  color: var(--color-primary);
+  border: 1px solid rgba(184,134,11,0.6);
+  padding: 0.35rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.trust-card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.trust-card-body h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.trust-card-body p {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
 /* Footer */
 .site-footer {
   background: rgba(0, 0, 0, 0.85);
@@ -459,6 +615,66 @@ body {
 }
 
 /* =====================================================
+   PAGE SPLIT (Image + Text Story Layout)
+   ===================================================== */
+.page-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 3.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(184,134,11,0.2);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.page-split--reverse .page-split-text {
+  order: 2;
+}
+.page-split--reverse .page-split-img {
+  order: 1;
+}
+
+.page-split-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid rgba(184,134,11,0.3);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  background: #000;
+}
+
+.page-split-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.page-split:hover .page-split-img img {
+  transform: scale(1.03);
+}
+
+.page-split-text h2 {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.page-split-text p {
+  color: var(--color-muted);
+  line-height: 1.8;
+  font-size: 1rem;
+  max-width: none;
+}
+
+/* =====================================================
    RESPONSIVE – mobile-first
    Targets: iPhone 15 Pro (393px), iPhone 15 Pro Max (430px),
             Google Pixel 8 Pro (412px)
@@ -472,6 +688,23 @@ body {
     gap: 1.5rem;
   }
   .hero h1 { font-size: 2.2rem; }
+
+  .page-split {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.75rem;
+  }
+  .page-split--reverse .page-split-text { order: 1; }
+  .page-split--reverse .page-split-img  { order: 2; }
+
+  .trust-strip-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .trust-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
 
   /* Show hamburger, hide nav links inline */
   .nav-toggle {
@@ -640,6 +873,52 @@ body {
   }
   .calendar-footer p {
     font-size: 0.72rem;
+  }
+
+  /* Trust strip mobile */
+  .trust-strip {
+    margin: 2rem 0 1.5rem;
+    padding: 1rem 0.75rem;
+  }
+  .trust-strip-inner {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  .trust-badge-item {
+    padding: 0.5rem 0.65rem;
+  }
+
+  /* Trust showcase mobile */
+  .trust-showcase {
+    padding: 0 0.75rem;
+    margin: 2.25rem auto;
+  }
+  .trust-showcase-header h2 {
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+  .trust-showcase-header p {
+    font-size: 0.9rem;
+  }
+  .trust-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .trust-card-body {
+    padding: 1.25rem 1rem;
+  }
+
+  /* Page split mobile */
+  .page-split {
+    padding: 1rem;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .page-split-text h2 {
+    font-size: 1.3rem;
+  }
+  .page-split-text p {
+    font-size: 0.9rem;
   }
 
   /* Footer */
