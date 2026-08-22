@@ -1,8 +1,8 @@
 /* style.css – Black Suit Car
-   Palette:
-   - #2C3539 : Cinza Chumbo (Gunmetal Gray)
-   - #1B263B : Azul Marinho Profundo (Deep Navy Blue)
-   - #F4F5F7 : Prata Metálico (Metallic Silver)
+   Theme: Dourado Nobre Imperial & Azul Marinho Profundo (Executive Gold & Royal Deep Navy)
+   - #D4AF37 : Dourado Nobre (Imperial Gold)
+   - #0B131F / #1B263B : Azul Marinho Profundo & Meia-Noite (Deep Royal Navy)
+   - #F8F9FA : Branco Gelo / Alto Contraste
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -11,22 +11,25 @@
    DESIGN TOKENS
    ===================================================== */
 :root {
-  --color-bg: #101924;                  /* Deep navy midnight background */
-  --color-lead-gray: #2C3539;            /* Cinza Chumbo */
-  --color-deep-navy: #1B263B;            /* Azul Marinho Profundo */
-  --color-deep-navy-hover: #263852;
-  --color-silver: #F4F5F7;               /* Prata Metálico */
-  --color-silver-muted: #A6B2BE;
-  --color-silver-dark: #6C7A89;
+  --color-bg: #0B131F;                  /* Deep Royal Midnight Navy */
+  --color-navy-card: #131D2D;            /* Navy Panel Surface */
+  --color-navy-elevated: #182538;        /* Elevated Navy Hover */
+  --color-navy-input: #0A101A;           /* Midnight Input Field */
   
-  --color-primary: #F4F5F7;              /* Primary metallic silver */
-  --color-primary-hover: #FFFFFF;
-  --color-text: #F4F5F7;
-  --color-muted: #A6B2BE;
+  --color-gold: #D4AF37;                 /* Imperial Gold */
+  --color-gold-light: #FFF1C5;           /* Champagne Gold */
+  --color-gold-dark: #AA820A;            /* Deep Amber Gold */
+  --color-gold-glow: rgba(212, 175, 55, 0.35);
   
-  --border-silver: rgba(244, 245, 247, 0.2);
-  --border-silver-hover: rgba(244, 245, 247, 0.5);
-  --shadow-silver-glow: 0 0 15px rgba(244, 245, 247, 0.2);
+  --color-primary: #D4AF37;              /* Primary Accent Gold */
+  --color-primary-hover: #E5C158;
+  --color-text: #F8F9FA;                 /* Crisp High-Contrast White/Silver */
+  --color-muted: #9DB2C6;                /* Soft Slate Navy Muted */
+  --color-muted-dark: #63778C;
+  
+  --border-gold: rgba(212, 175, 55, 0.28);
+  --border-gold-hover: rgba(212, 175, 55, 0.7);
+  --shadow-gold-glow: 0 0 16px rgba(212, 175, 55, 0.25);
   
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --radius: 0.5rem;
@@ -40,7 +43,10 @@
 body {
   margin: 0;
   background-color: var(--color-bg);
-  background-image: radial-gradient(circle at 50% 0%, rgba(27, 38, 59, 0.6) 0%, rgba(16, 25, 36, 0.95) 100%);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(27, 38, 59, 0.75) 0%, transparent 60%),
+    radial-gradient(circle at 100% 40%, rgba(212, 175, 55, 0.04) 0%, transparent 40%),
+    linear-gradient(180deg, #0B131F 0%, #080D14 100%);
   background-attachment: fixed;
   color: var(--color-text);
   font-family: var(--font-family);
@@ -59,30 +65,31 @@ body {
   padding-top: max(0.85rem, env(safe-area-inset-top));
   padding-left: max(2rem, env(safe-area-inset-left));
   padding-right: max(2rem, env(safe-area-inset-right));
-  background: rgba(27, 38, 59, 0.92);
+  background: rgba(11, 19, 31, 0.92);
   backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid var(--border-silver);
+  border-bottom: 1px solid var(--border-gold);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   flex-wrap: wrap;
   position: relative;
 }
 
 .logo {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  color: var(--color-silver);
+  color: var(--color-gold);
   text-decoration: none;
   letter-spacing: 0.04em;
   white-space: nowrap;
   flex-shrink: 0;
-  text-shadow: 0 0 12px rgba(244, 245, 247, 0.35);
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
   transition: transform var(--transition), text-shadow var(--transition);
 }
 
 .logo:hover {
-  text-shadow: 0 0 18px rgba(244, 245, 247, 0.6);
+  text-shadow: 0 0 22px rgba(212, 175, 55, 0.75);
 }
 
 /* Main navigation */
@@ -108,9 +115,9 @@ body {
 
 .main-nav a:hover,
 .main-nav a.active {
-  color: var(--color-silver);
-  background: rgba(44, 53, 57, 0.7);
-  border-color: rgba(244, 245, 247, 0.3);
+  color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.35);
 }
 
 .lang-switcher {
@@ -139,13 +146,13 @@ body {
   order: -1;
   flex-shrink: 0;
 }
-.nav-toggle:hover { background: rgba(244, 245, 247, 0.1); }
+.nav-toggle:hover { background: rgba(212, 175, 55, 0.12); }
 
 .burger-line {
   display: block;
   width: 22px;
   height: 2px;
-  background: var(--color-silver);
+  background: var(--color-gold);
   border-radius: 2px;
   transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
   transform-origin: center;
@@ -177,9 +184,9 @@ body {
 }
 
 .lang-btn.active-lang {
-  border-color: var(--color-silver);
-  background: var(--color-lead-gray);
-  box-shadow: 0 0 10px rgba(244, 245, 247, 0.3);
+  border-color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.15);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
 }
 
 .lang-indicator {
@@ -194,8 +201,8 @@ body {
 .hero {
   text-align: center;
   padding: 4.5rem 2rem 3.5rem;
-  background: linear-gradient(135deg, rgba(27, 38, 59, 0.85) 0%, rgba(44, 53, 57, 0.75) 100%);
-  border-bottom: 1px solid var(--border-silver);
+  background: linear-gradient(135deg, rgba(13, 21, 32, 0.9) 0%, rgba(27, 38, 59, 0.85) 50%, rgba(13, 21, 32, 0.9) 100%);
+  border-bottom: 1px solid var(--border-gold);
   position: relative;
   overflow: hidden;
 }
@@ -206,24 +213,24 @@ body {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 600px;
-  height: 250px;
-  background: radial-gradient(ellipse at center, rgba(244, 245, 247, 0.08), transparent 70%);
+  width: 700px;
+  height: 280px;
+  background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.14), transparent 70%);
   pointer-events: none;
 }
 
 .hero h1 {
-  font-size: 2.6rem;
+  font-size: 2.65rem;
   margin-bottom: 0.5rem;
-  color: var(--color-silver);
+  color: var(--color-gold);
   font-weight: 800;
   letter-spacing: 0.02em;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6), 0 0 20px rgba(212, 175, 55, 0.3);
 }
 
 .hero p {
   font-size: 1.15rem;
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
   max-width: 650px;
   margin: 0 auto;
 }
@@ -243,22 +250,22 @@ body {
 
 /* Form panel */
 .reservation-form {
-  background: var(--color-lead-gray);
+  background: var(--color-navy-card);
   padding: 2rem;
   border-radius: var(--radius);
   backdrop-filter: blur(8px);
-  border: 1px solid var(--border-silver);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(244, 245, 247, 0.1);
+  border: 1px solid var(--border-gold);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.06);
 }
 
 .reservation-form h2 {
-  color: var(--color-silver);
+  color: var(--color-gold);
   margin-bottom: 1.5rem;
   font-size: 1.15rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  border-bottom: 1px solid rgba(244, 245, 247, 0.15);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
   padding-bottom: 0.75rem;
 }
 
@@ -272,17 +279,17 @@ body {
   margin-bottom: 0.35rem;
   font-weight: 600;
   font-size: 0.85rem;
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
   padding: 0.7rem 0.85rem;
-  border: 1px solid rgba(244, 245, 247, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.25);
   border-radius: var(--radius);
-  background: var(--color-deep-navy);
-  color: var(--color-silver);
+  background: var(--color-navy-input);
+  color: var(--color-text);
   font-family: var(--font-family);
   font-size: 0.95rem;
   transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
@@ -294,7 +301,7 @@ body {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23F4F5F7' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23D4AF37' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.85rem center;
   background-size: 1.1rem;
@@ -302,30 +309,30 @@ body {
 }
 
 .form-group select option {
-  background-color: #1B263B !important;
-  color: #F4F5F7 !important;
+  background-color: #0B131F !important;
+  color: #F8F9FA !important;
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
 }
 
 .form-group select option:hover,
 .form-group select option:checked {
-  background-color: #2C3539 !important;
-  color: #FFFFFF !important;
+  background-color: #1B263B !important;
+  color: #D4AF37 !important;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--color-silver);
-  background: #23314B;
-  box-shadow: 0 0 10px rgba(244, 245, 247, 0.3);
+  border-color: var(--color-gold);
+  background: #101B2B;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
 }
 
 /* Form Validation & Error Styles */
 .field-error {
-  color: #ff7b7b;
+  color: #ff6b6b;
   font-size: 0.8rem;
   margin-top: 0.35rem;
   display: none;
@@ -337,8 +344,8 @@ body {
   animation: fadeIn 0.25s ease-in-out;
 }
 .form-group input.input-error {
-  border-color: #ff7b7b !important;
-  background: rgba(255, 123, 123, 0.1) !important;
+  border-color: #ff6b6b !important;
+  background: rgba(255, 107, 107, 0.1) !important;
 }
 
 @keyframes fadeIn {
@@ -383,12 +390,12 @@ body {
 }
 
 .time-selectors.has-error select {
-  border-color: #ff7b7b !important;
-  background-color: rgba(255, 123, 123, 0.1) !important;
+  border-color: #ff6b6b !important;
+  background-color: rgba(255, 107, 107, 0.1) !important;
 }
 
 .time-separator {
-  color: var(--color-silver);
+  color: var(--color-gold);
   font-weight: 700;
   font-size: 1.1rem;
   user-select: none;
@@ -416,7 +423,7 @@ body {
 
 .time-status-pill.is-occupied {
   background: rgba(231, 76, 60, 0.18);
-  color: #ff7b7b;
+  color: #ff6b6b;
   border: 1px solid rgba(231, 76, 60, 0.5);
   animation: pulse 1.8s infinite;
 }
@@ -434,44 +441,43 @@ body {
 
 .booking-notice {
   font-size: 0.78rem;
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
   text-align: center;
   margin-top: 0.75rem;
   line-height: 1.4;
 }
 
-/* CTA Button */
+/* CTA Button (Gold Glow on Navy) */
 .cta-button {
   display: block;
   width: 100%;
-  padding: 0.9rem;
-  background: linear-gradient(135deg, #1B263B 0%, #2C3539 100%);
-  color: #F4F5F7;
-  border: 1px solid #F4F5F7;
+  padding: 0.95rem;
+  background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+  color: #080D14;
+  border: 1px solid #FFF1C5;
   border-radius: var(--radius);
   font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-weight: 800;
+  letter-spacing: 0.05em;
   cursor: pointer;
   transition: all var(--transition);
   margin-top: 1rem;
-  box-shadow: 0 4px 15px rgba(27, 38, 59, 0.7), 0 0 10px rgba(244, 245, 247, 0.15);
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.45), 0 0 12px rgba(212, 175, 55, 0.25);
   text-decoration: none;
   text-align: center;
 }
 
 .cta-button:hover {
-  background: linear-gradient(135deg, #24344E 0%, #3A464B 100%);
-  border-color: #FFFFFF;
+  background: linear-gradient(135deg, #E5C158 0%, #C99710 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(244, 245, 247, 0.3);
+  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.65);
 }
 
 /* Modal Overlay & Card for Occupied Time */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(16, 25, 36, 0.88);
+  background: rgba(7, 12, 18, 0.9);
   backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
@@ -493,9 +499,9 @@ body.modal-open {
 }
 
 .modal-card {
-  background: var(--color-lead-gray);
-  border: 1px solid var(--color-silver);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px rgba(244, 245, 247, 0.2);
+  background: var(--color-navy-card);
+  border: 1px solid var(--color-gold);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 35px rgba(212, 175, 55, 0.3);
   border-radius: 1rem;
   max-width: 480px;
   width: 100%;
@@ -516,15 +522,15 @@ body.modal-open {
 
 .modal-title {
   font-size: 1.35rem;
-  color: var(--color-silver);
+  color: var(--color-gold);
   margin-bottom: 0.75rem;
   letter-spacing: 0.03em;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .modal-message {
   font-size: 0.95rem;
-  color: var(--color-silver-muted);
+  color: var(--color-text);
   line-height: 1.6;
   margin-bottom: 1.75rem;
 }
@@ -540,11 +546,11 @@ body.modal-open {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  background: var(--color-lead-gray);
+  background: var(--color-navy-card);
   padding: 1.75rem;
   border-radius: var(--radius);
-  border: 1px solid var(--border-silver);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(244, 245, 247, 0.1);
+  border: 1px solid var(--border-gold);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.06);
   backdrop-filter: blur(8px);
 }
 
@@ -553,11 +559,11 @@ body.modal-open {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-silver);
+  color: var(--color-gold);
   line-height: 1.4;
   margin: 0 0 0.5rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(244, 245, 247, 0.15);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 .calendar-section iframe {
@@ -565,12 +571,12 @@ body.modal-open {
   border-radius: var(--radius);
   flex: 1;
   min-height: 480px;
-  border: 1px solid rgba(244, 245, 247, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 .calendar-footer {
   padding-top: 0.5rem;
-  border-top: 1px solid rgba(244, 245, 247, 0.1);
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -578,21 +584,21 @@ body.modal-open {
 .calendar-footer p {
   margin: 0;
   font-size: 0.78rem;
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
   line-height: 1.5;
   text-align: center;
 }
 .calendar-footer strong {
-  color: var(--color-silver);
+  color: var(--color-gold);
 }
 
 /* =====================================================
    TRUST & CREDIBILITY STRIP
    ===================================================== */
 .trust-strip {
-  background: rgba(27, 38, 59, 0.65);
-  border-top: 1px solid var(--border-silver);
-  border-bottom: 1px solid var(--border-silver);
+  background: rgba(13, 21, 32, 0.85);
+  border-top: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
   margin: 3.5rem 0 2.5rem;
   padding: 1.5rem;
   backdrop-filter: blur(10px);
@@ -612,14 +618,14 @@ body.modal-open {
   align-items: center;
   gap: 0.85rem;
   padding: 0.65rem 0.85rem;
-  background: var(--color-lead-gray);
+  background: var(--color-navy-card);
   border-radius: var(--radius);
-  border: 1px solid rgba(244, 245, 247, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   transition: border-color var(--transition), background var(--transition), transform var(--transition);
 }
 .trust-badge-item:hover {
-  border-color: var(--color-silver);
-  background: #343E44;
+  border-color: var(--color-gold);
+  background: var(--color-navy-elevated);
   transform: translateY(-2px);
 }
 
@@ -631,7 +637,7 @@ body.modal-open {
 .trust-badge-text {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--color-silver);
+  color: var(--color-text);
   line-height: 1.35;
 }
 
@@ -651,15 +657,16 @@ body.modal-open {
 
 .trust-showcase-header h2 {
   font-size: 2rem;
-  color: var(--color-silver);
+  color: var(--color-gold);
   margin-bottom: 0.5rem;
   letter-spacing: 0.04em;
   font-weight: 800;
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
 }
 
 .trust-showcase-header p {
   font-size: 1.05rem;
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
   max-width: 700px;
   margin: 0 auto;
 }
@@ -671,20 +678,20 @@ body.modal-open {
 }
 
 .trust-card {
-  background: var(--color-lead-gray);
-  border: 1px solid var(--border-silver);
+  background: var(--color-navy-card);
+  border: 1px solid var(--border-gold);
   border-radius: var(--radius);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
 .trust-card:hover {
   transform: translateY(-6px);
-  border-color: var(--color-silver);
-  box-shadow: 0 16px 36px rgba(244, 245, 247, 0.2);
+  border-color: var(--color-gold);
+  box-shadow: 0 16px 36px rgba(212, 175, 55, 0.25);
 }
 
 .trust-card-media {
@@ -711,10 +718,10 @@ body.modal-open {
   position: absolute;
   top: 1rem;
   left: 1rem;
-  background: rgba(27, 38, 59, 0.92);
+  background: rgba(11, 19, 31, 0.92);
   backdrop-filter: blur(8px);
-  color: var(--color-silver);
-  border: 1px solid var(--color-silver);
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold);
   padding: 0.35rem 0.75rem;
   border-radius: 2rem;
   font-size: 0.75rem;
@@ -734,13 +741,13 @@ body.modal-open {
 .trust-card-body h3 {
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--color-silver);
+  color: var(--color-gold);
   margin: 0;
 }
 
 .trust-card-body p {
   font-size: 0.9rem;
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
   line-height: 1.6;
   margin: 0;
 }
@@ -757,18 +764,19 @@ body.modal-open {
 .page-hero {
   text-align: center;
   padding: 4rem 1rem 2rem;
-  border-bottom: 1px solid var(--border-silver);
+  border-bottom: 1px solid var(--border-gold);
   margin-bottom: 2.5rem;
 }
 .page-hero h1 {
-  font-size: 2.3rem;
-  color: var(--color-silver);
+  font-size: 2.35rem;
+  color: var(--color-gold);
   margin-bottom: 0.5rem;
   font-weight: 800;
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 .page-hero p {
   font-size: 1.1rem;
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
 }
 
 .page-section {
@@ -776,14 +784,14 @@ body.modal-open {
 }
 .page-section h2 {
   font-size: 1.35rem;
-  color: var(--color-silver);
+  color: var(--color-gold);
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 700;
 }
 .page-section p {
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
   line-height: 1.75;
   max-width: 720px;
 }
@@ -796,8 +804,8 @@ body.modal-open {
 }
 
 .feature-card {
-  background: var(--color-lead-gray);
-  border: 1px solid var(--border-silver);
+  background: var(--color-navy-card);
+  border: 1px solid var(--border-gold);
   border-radius: var(--radius);
   padding: 1.5rem;
   display: flex;
@@ -806,17 +814,18 @@ body.modal-open {
   transition: border-color var(--transition), background var(--transition), transform var(--transition);
 }
 .feature-card:hover {
-  background: #343E44;
-  border-color: var(--color-silver);
+  background: var(--color-navy-elevated);
+  border-color: var(--color-gold);
   transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
 }
 .feature-icon { font-size: 2rem; }
 .feature-card h3 {
   font-size: 1.05rem;
-  color: var(--color-silver);
+  color: var(--color-gold);
   font-weight: 700;
 }
-.feature-card p { font-size: 0.9rem; color: var(--color-silver-muted); }
+.feature-card p { font-size: 0.9rem; color: var(--color-muted); }
 
 /* Contact grid */
 .contact-grid {
@@ -833,19 +842,19 @@ body.modal-open {
   flex-direction: column;
   gap: 0.75rem;
 }
-.contact-details li { font-size: 0.95rem; color: var(--color-silver-muted); }
-.contact-details a { color: var(--color-silver); text-decoration: none; font-weight: 600; }
+.contact-details li { font-size: 0.95rem; color: var(--color-muted); }
+.contact-details a { color: var(--color-gold); text-decoration: none; font-weight: 600; }
 .contact-details a:hover { text-decoration: underline; }
 .contact-form-wrap {
-  background: var(--color-lead-gray);
+  background: var(--color-navy-card);
   padding: 2rem;
   border-radius: var(--radius);
-  border: 1px solid var(--border-silver);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid var(--border-gold);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 .contact-form-wrap h2 {
   font-size: 1.1rem;
-  color: var(--color-silver);
+  color: var(--color-gold);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 1rem;
@@ -859,12 +868,12 @@ body.modal-open {
   gap: 3rem;
   align-items: center;
   margin-bottom: 3.5rem;
-  background: var(--color-lead-gray);
-  border: 1px solid var(--border-silver);
+  background: var(--color-navy-card);
+  border: 1px solid var(--border-gold);
   border-radius: var(--radius);
   padding: 2.5rem;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .page-split--reverse .page-split-text {
@@ -879,7 +888,7 @@ body.modal-open {
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: var(--radius);
-  border: 1px solid var(--border-silver);
+  border: 1px solid var(--border-gold);
   box-shadow: 0 10px 25px rgba(0,0,0,0.6);
   background: #000;
 }
@@ -898,14 +907,14 @@ body.modal-open {
 
 .page-split-text h2 {
   font-size: 1.5rem;
-  color: var(--color-silver);
+  color: var(--color-gold);
   margin-bottom: 1rem;
   letter-spacing: 0.04em;
   font-weight: 700;
 }
 
 .page-split-text p {
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
   line-height: 1.8;
   font-size: 1rem;
   max-width: none;
@@ -926,17 +935,18 @@ body.modal-open {
 }
 
 .faq-item {
-  background: var(--color-lead-gray);
-  border: 1px solid var(--border-silver);
+  background: var(--color-navy-card);
+  border: 1px solid var(--border-gold);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: border-color var(--transition), background var(--transition);
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
 }
 
 .faq-item:hover,
 .faq-item.is-open {
-  border-color: var(--color-silver);
-  background: #343E44;
+  border-color: var(--color-gold);
+  background: var(--color-navy-elevated);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
 }
 
 .faq-question {
@@ -945,7 +955,7 @@ body.modal-open {
   background: transparent;
   border: none;
   padding: 1.25rem 1.5rem;
-  color: var(--color-silver);
+  color: var(--color-text);
   font-size: 1.05rem;
   font-weight: 600;
   display: flex;
@@ -957,13 +967,14 @@ body.modal-open {
   transition: color var(--transition);
 }
 
-.faq-question:hover {
-  color: #FFFFFF;
+.faq-question:hover,
+.faq-item.is-open .faq-question {
+  color: var(--color-gold);
 }
 
 .faq-icon {
   font-size: 1.4rem;
-  color: var(--color-silver);
+  color: var(--color-gold);
   font-weight: 700;
   line-height: 1;
   transition: transform 0.3s ease;
@@ -987,7 +998,7 @@ body.modal-open {
 }
 
 .faq-answer p {
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
   line-height: 1.75;
   font-size: 0.95rem;
   margin: 0;
@@ -998,20 +1009,21 @@ body.modal-open {
   max-width: 800px;
   margin: 0 auto 4rem;
   padding: 3rem 2rem;
-  background: linear-gradient(135deg, rgba(27, 38, 59, 0.9) 0%, rgba(44, 53, 57, 0.9) 100%);
-  border: 1px solid var(--border-silver);
+  background: linear-gradient(135deg, rgba(11, 19, 31, 0.95) 0%, rgba(27, 38, 59, 0.95) 100%);
+  border: 1px solid var(--border-gold);
   border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .faq-cta h2 {
   font-size: 1.6rem;
-  color: var(--color-silver);
+  color: var(--color-gold);
   margin-bottom: 0.5rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .faq-cta p {
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
   font-size: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -1020,8 +1032,8 @@ body.modal-open {
    FOOTER
    ===================================================== */
 .site-footer {
-  background: #0E1622;
-  border-top: 1px solid var(--border-silver);
+  background: #060A10;
+  border-top: 1px solid var(--border-gold);
   margin-top: 3rem;
   padding: 0;
 }
@@ -1042,7 +1054,7 @@ body.modal-open {
 .footer-heading {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--color-silver);
+  color: var(--color-gold);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0 0 1rem;
@@ -1058,25 +1070,25 @@ body.modal-open {
 }
 
 .footer-links a {
-  color: var(--color-silver-muted);
+  color: var(--color-muted);
   text-decoration: none;
   font-size: 0.9rem;
-  border-bottom: 1px solid rgba(244, 245, 247, 0.08);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.08);
   padding-bottom: 0.45rem;
   display: block;
   transition: color var(--transition), border-color var(--transition);
 }
 
 .footer-links a:hover {
-  color: var(--color-silver);
-  border-color: rgba(244, 245, 247, 0.4);
+  color: var(--color-gold);
+  border-color: rgba(212, 175, 55, 0.5);
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(244, 245, 247, 0.06);
+  border-top: 1px solid rgba(212, 175, 55, 0.1);
   text-align: center;
   padding: 1rem 2rem;
-  color: var(--color-silver-dark);
+  color: var(--color-muted-dark);
   font-size: 0.82rem;
 }
 
@@ -1118,9 +1130,9 @@ body.modal-open {
     top: 100%;
     left: 0;
     right: 0;
-    background: rgba(27, 38, 59, 0.98);
+    background: rgba(11, 19, 31, 0.98);
     backdrop-filter: blur(16px);
-    border-bottom: 2px solid var(--color-silver);
+    border-bottom: 2px solid var(--color-gold);
     flex-direction: column;
     align-items: stretch;
     padding: 0;
@@ -1139,7 +1151,7 @@ body.modal-open {
   .main-nav a {
     padding: 0.9rem 1.5rem;
     border-radius: 0;
-    border-bottom: 1px solid rgba(244, 245, 247, 0.08);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
     font-size: 1rem;
     font-weight: 500;
   }
@@ -1148,7 +1160,7 @@ body.modal-open {
   }
   .main-nav a:hover,
   .main-nav a.active {
-    background: rgba(44, 53, 57, 0.8);
+    background: rgba(212, 175, 55, 0.15);
     padding-left: 2rem;
   }
 
@@ -1193,7 +1205,7 @@ body.modal-open {
   .hero p {
     font-size: 0.95rem;
     line-height: 1.5;
-    color: var(--color-silver-muted);
+    color: var(--color-muted);
   }
 
   .content-grid {
@@ -1252,8 +1264,8 @@ body.modal-open {
     font-size: 1rem;
     border-radius: 0.75rem;
     margin-top: 1.25rem;
-    box-shadow: 0 0 18px rgba(244, 245, 247, 0.25);
-    letter-spacing: 0.03em;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+    letter-spacing: 0.04em;
   }
 
   .calendar-section {
