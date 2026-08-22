@@ -1,0 +1,20 @@
+{
+  "heroTitle": "Serviço de Carro Premium",
+  "heroSubtitle": "Viaje com conforto pelos EUA e Brasil.",
+  "formTitle": "Reserve sua Viagem",
+  "pickupLabel": "Local A (Embarque)",
+  "pickupPlaceholder": "Digite o local de embarque",
+  "dropoffLabel": "Local B (Desembarque)",
+  "dropoffPlaceholder": "Digite o local de desembarque",
+  "passengersLabel": "Quantidade de passageiros",
+  "tripTypeLabel": "Tipo de viagem",
+  "tripOptionOneWayRide": "ONE WAY RIDE",
+  "tripOptionOneWayTrip": "ONE WAY TRIP",
+  "tripOptionRoundTripWait": "ROUND TRIP WITH DESTINATION WAIT",
+  "tripOptionScheduledReturn": "SCHEDULED RETURN TRIP",
+  "dateLabel": "Data do embarque (MM/DD/YYYY)",
+  "specialRequestsLabel": "Observações (Special Requests)",
+  "specialRequestsPlaceholder": "Algum pedido especial?",
+  "ctaButton": "Ver preço Black Suit",
+  "calendarTitle": "Disponibilidade Semanal"
+}
