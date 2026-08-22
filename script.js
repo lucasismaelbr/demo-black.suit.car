@@ -4,12 +4,15 @@ const defaultLang = 'en';
 let mapsLoaded = false;
 let currentDateMask = 'en'; // 'en' = MM/DD/YYYY | 'pt' = DD/MM/AAAA
 
+let currentTranslations = {};
+
 // Load translation JSON and apply to DOM
 async function loadTranslations(lang) {
   try {
     const response = await fetch(lang + '.json');
     if (!response.ok) throw new Error('Failed to load: ' + lang + '.json');
     const t = await response.json();
+    currentTranslations = t;
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.dataset.i18n;
@@ -24,9 +27,10 @@ async function loadTranslations(lang) {
     // Update date mask locale
     if (t.dateMask) {
       currentDateMask = t.dateMask;
-      // Clear the date field so old partial input doesn't confuse new format
       const dateInput = document.getElementById('date');
-      if (dateInput && dateInput.value === '') dateInput.value = '';
+      if (dateInput && dateInput.value) {
+        checkAndDisplayDateError(dateInput);
+      }
     }
 
     document.documentElement.lang = lang;
@@ -42,32 +46,129 @@ function initLangSwitcher() {
   });
 }
 
-// Date mask – locale-aware
+// Parse & validate date: blocks past dates and invalid formats
+function validateDateValue(value) {
+  if (!value || value.trim() === '') {
+    return { valid: false, errorKey: 'dateInvalidError' };
+  }
+
+  const parts = value.split('/');
+  if (parts.length !== 3 || parts[0].length !== 2 || parts[1].length !== 2 || parts[2].length !== 4) {
+    return { valid: false, errorKey: 'dateInvalidError' };
+  }
+
+  let day, month, year;
+  if (currentDateMask === 'pt') {
+    day   = parseInt(parts[0], 10);
+    month = parseInt(parts[1], 10);
+    year  = parseInt(parts[2], 10);
+  } else {
+    month = parseInt(parts[0], 10);
+    day   = parseInt(parts[1], 10);
+    year  = parseInt(parts[2], 10);
+  }
+
+  if (isNaN(day) || isNaN(month) || isNaN(year)) {
+    return { valid: false, errorKey: 'dateInvalidError' };
+  }
+
+  if (month < 1 || month > 12 || day < 1 || day > 31 || year < 2024 || year > 2100) {
+    return { valid: false, errorKey: 'dateInvalidError' };
+  }
+
+  // Check valid days in month (including leap years)
+  const daysInMonth = new Date(year, month, 0).getDate();
+  if (day > daysInMonth) {
+    return { valid: false, errorKey: 'dateInvalidError' };
+  }
+
+  // Input date at midnight local time
+  const inputDate = new Date(year, month - 1, day, 0, 0, 0, 0);
+
+  // Today at midnight local time
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Block any past date
+  if (inputDate.getTime() < today.getTime()) {
+    return { valid: false, errorKey: 'datePastError' };
+  }
+
+  return { valid: true };
+}
+
+// Display/clear inline error for date input
+function checkAndDisplayDateError(input) {
+  const errorEl = document.getElementById('dateError');
+  const val = input.value.trim();
+
+  if (!val) {
+    if (errorEl) {
+      errorEl.textContent = '';
+      errorEl.classList.remove('is-visible');
+    }
+    input.classList.remove('input-error');
+    input.setCustomValidity('');
+    return false;
+  }
+
+  const result = validateDateValue(val);
+  if (!result.valid) {
+    const errorMsg = currentTranslations[result.errorKey] ||
+      (result.errorKey === 'datePastError'
+        ? 'Departure date cannot be in the past. Please choose today or a future date.'
+        : 'Please enter a valid date.');
+
+    if (errorEl) {
+      errorEl.textContent = errorMsg;
+      errorEl.classList.add('is-visible');
+    }
+    input.classList.add('input-error');
+    input.setCustomValidity(errorMsg);
+    return false;
+  } else {
+    if (errorEl) {
+      errorEl.textContent = '';
+      errorEl.classList.remove('is-visible');
+    }
+    input.classList.remove('input-error');
+    input.setCustomValidity('');
+    return true;
+  }
+}
+
+// Date mask – locale-aware with live past-date validation
 // EN: MM/DD/YYYY  |  PT: DD/MM/AAAA
-// The separator is always '/' for readability; 8 digits total.
 function maskDate(input) {
   input.addEventListener('input', function () {
     // Strip non-digits
     let v = this.value.replace(/\D/g, '').slice(0, 8);
-    // Same positional structure for both locales: XX/XX/XXXX
     if (v.length >= 5) {
       v = v.slice(0, 2) + '/' + v.slice(2, 4) + '/' + v.slice(4);
     } else if (v.length >= 3) {
       v = v.slice(0, 2) + '/' + v.slice(2);
     }
     this.value = v;
+
+    // If 8 digits (full date) entered, validate immediately
+    if (v.length === 10) {
+      checkAndDisplayDateError(this);
+    } else {
+      // Clear error while user is still typing
+      const errorEl = document.getElementById('dateError');
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.classList.remove('is-visible');
+      }
+      this.classList.remove('input-error');
+      this.setCustomValidity('');
+    }
   });
 
-  // Validate on blur
+  // Full validation on blur
   input.addEventListener('blur', function () {
-    const v = this.value;
-    if (!v) return;
-    const parts = v.split('/');
-    if (parts.length !== 3 || parts[2].length !== 4) {
-      const hint = currentDateMask === 'pt' ? 'DD/MM/AAAA' : 'MM/DD/YYYY';
-      this.setCustomValidity('Use the format ' + hint);
-    } else {
-      this.setCustomValidity('');
+    if (this.value.trim() !== '') {
+      checkAndDisplayDateError(this);
     }
   });
 }
@@ -87,26 +188,20 @@ function initMapsAutocomplete() {
 }
 
 // Load the Maps script – only if the API key is available and the domain is authorized.
-// To activate: call loadMaps() from the console or enable below.
 function loadMaps() {
   if (mapsLoaded) return;
   mapsLoaded = true;
-  // ⚠️  The key below must have the Vercel / production domain
-  //     whitelisted in Google Cloud Console → APIs & Services → Credentials
-  //     before this script is re-enabled in production.
   const key = 'AIzaSyCRDaJ5YnEcUfOmb4vGbB5m5qDHHfs3_Ms';
   const s   = document.createElement('script');
   s.src     = 'https://maps.googleapis.com/maps/api/js?key=' + key
               + '&libraries=places&callback=initMapsAutocomplete';
   s.async   = true;
-  s.onerror = () => { mapsLoaded = false; }; // allow retry
+  s.onerror = () => { mapsLoaded = false; };
   document.head.appendChild(s);
 }
 
 // Lazy-load Maps ONLY after the domain is whitelisted.
-// Currently disabled to prevent error messages appearing in the input fields.
 function lazyLoadMaps() {
-  // TODO: re-enable when the API key domain restriction is configured.
   // loadMaps();
 }
 
@@ -116,13 +211,26 @@ function setYear() {
   if (el) el.textContent = new Date().getFullYear();
 }
 
-// Form submission stub
+// Form submission handler with complete validation
 function initForm() {
   const form = document.getElementById('rideForm');
   if (!form) return;
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    alert('Request received! We will contact you shortly.');
+
+    const dateInput = document.getElementById('date');
+    if (dateInput) {
+      const isDateValid = checkAndDisplayDateError(dateInput);
+      if (!isDateValid) {
+        dateInput.focus();
+        return;
+      }
+    }
+
+    const successMsg = currentTranslations['formSuccess'] ||
+      'Thank you! Your ride request has been submitted. We will contact you shortly to confirm.';
+    alert(successMsg);
   });
 }
 
