@@ -194,21 +194,140 @@ function maskDate(input) {
   });
 }
 
-// Google Maps Autocomplete init
-// NOTE: Called by the Maps script callback once it loads successfully.
-function initMapsAutocomplete() {
-  if (!window.google || !google.maps || !google.maps.places) return;
-  const opts = {
-    types: ['establishment', 'geocode'],
-    componentRestrictions: { country: 'us' }
-  };
-  const pickup  = document.getElementById('pickup');
-  const dropoff = document.getElementById('dropoff');
-  if (pickup)  new google.maps.places.Autocomplete(pickup,  opts);
-  if (dropoff) new google.maps.places.Autocomplete(dropoff, opts);
+// Non-US location keywords for manual input validation
+const nonUsKeywords = [
+  'brazil', 'brasil', 'sao paulo', 'são paulo', 'rio de janeiro', 'curitiba', 'salvador', 'brasilia', 'brasília',
+  'belo horizonte', 'fortaleza', 'manaus', 'recife', 'porto alegre', 'goiania', 'goiânia',
+  'canada', 'ontario', 'toronto', 'quebec', 'vancouver', 'montreal', 'calgary',
+  'mexico', 'méxico', 'cancun', 'guadalajara', 'monterrey',
+  'united kingdom', 'london', 'england', 'uk', 'portugal', 'lisboa', 'porto',
+  'argentina', 'buenos aires', 'colombia', 'bogota', 'chile', 'santiago',
+  'france', 'paris', 'germany', 'berlin', 'italy', 'rome', 'roma', 'spain', 'madrid', 'barcelona',
+  'australia', 'sydney', 'melbourne', 'japan', 'tokyo', 'china', 'beijing', 'shanghai'
+];
+
+// Validate individual address field (enforces US locations)
+function validateAddressField(input, errorElementId) {
+  const errorEl = document.getElementById(errorElementId);
+  const val = input.value.trim();
+
+  if (!val) {
+    if (errorEl) {
+      errorEl.textContent = currentTranslations['addressRequiredError'] || 'Please enter a location.';
+      errorEl.classList.add('is-visible');
+    }
+    input.classList.add('input-error');
+    input.setCustomValidity(currentTranslations['addressRequiredError'] || 'Please enter a location.');
+    return false;
+  }
+
+  // Check for non-US keywords
+  const lower = val.toLowerCase();
+  const isNonUs = nonUsKeywords.some(keyword => {
+    const regex = new RegExp('\\b' + keyword + '\\b', 'i');
+    return regex.test(lower);
+  });
+
+  if (isNonUs) {
+    const errorMsg = currentTranslations['addressUsOnlyError'] ||
+      'We exclusively operate within the United States. Please enter a valid US address.';
+    if (errorEl) {
+      errorEl.textContent = errorMsg;
+      errorEl.classList.add('is-visible');
+    }
+    input.classList.add('input-error');
+    input.setCustomValidity(errorMsg);
+    return false;
+  }
+
+  // Valid address
+  if (errorEl) {
+    errorEl.textContent = '';
+    errorEl.classList.remove('is-visible');
+  }
+  input.classList.remove('input-error');
+  input.setCustomValidity('');
+  return true;
 }
 
-// Load the Maps script – only if the API key is available and the domain is authorized.
+// Google Maps Places Autocomplete init - STRICTLY RESTRICTED TO US
+function initMapsAutocomplete() {
+  if (!window.google || !google.maps || !google.maps.places) return;
+
+  const opts = {
+    types: ['establishment', 'geocode'],
+    componentRestrictions: { country: 'us' }, // Restricts suggestions strictly to United States
+    fields: ['address_components', 'formatted_address', 'geometry', 'name']
+  };
+
+  const pickup  = document.getElementById('pickup');
+  const dropoff = document.getElementById('dropoff');
+
+  if (pickup) {
+    const autoPickup = new google.maps.places.Autocomplete(pickup, opts);
+    autoPickup.addListener('place_changed', function () {
+      const place = autoPickup.getPlace();
+      handlePlaceSelection(pickup, place, 'pickupError');
+    });
+    pickup.addEventListener('blur', () => validateAddressField(pickup, 'pickupError'));
+    pickup.addEventListener('input', () => {
+      const errorEl = document.getElementById('pickupError');
+      if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('is-visible'); }
+      pickup.classList.remove('input-error');
+      pickup.setCustomValidity('');
+    });
+  }
+
+  if (dropoff) {
+    const autoDropoff = new google.maps.places.Autocomplete(dropoff, opts);
+    autoDropoff.addListener('place_changed', function () {
+      const place = autoDropoff.getPlace();
+      handlePlaceSelection(dropoff, place, 'dropoffError');
+    });
+    dropoff.addEventListener('blur', () => validateAddressField(dropoff, 'dropoffError'));
+    dropoff.addEventListener('input', () => {
+      const errorEl = document.getElementById('dropoffError');
+      if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('is-visible'); }
+      dropoff.classList.remove('input-error');
+      dropoff.setCustomValidity('');
+    });
+  }
+}
+
+// Verify place returned by Google Autocomplete has US country code
+function handlePlaceSelection(input, place, errorElementId) {
+  const errorEl = document.getElementById(errorElementId);
+
+  if (!place || !place.address_components) {
+    return validateAddressField(input, errorElementId);
+  }
+
+  const countryComp = place.address_components.find(comp =>
+    comp.types && comp.types.includes('country')
+  );
+
+  const isUs = countryComp && (countryComp.short_name === 'US' || countryComp.short_name === 'USA');
+
+  if (!isUs) {
+    const errorMsg = currentTranslations['addressUsOnlyError'] ||
+      'We exclusively operate within the United States. Please enter a valid US address.';
+    if (errorEl) {
+      errorEl.textContent = errorMsg;
+      errorEl.classList.add('is-visible');
+    }
+    input.classList.add('input-error');
+    input.setCustomValidity(errorMsg);
+  } else {
+    if (errorEl) {
+      errorEl.textContent = '';
+      errorEl.classList.remove('is-visible');
+    }
+    input.classList.remove('input-error');
+    input.setCustomValidity('');
+  }
+}
+
+// Load the Maps script – with US restricted Autocomplete
 function loadMaps() {
   if (mapsLoaded) return;
   mapsLoaded = true;
@@ -221,9 +340,9 @@ function loadMaps() {
   document.head.appendChild(s);
 }
 
-// Lazy-load Maps ONLY after the domain is whitelisted.
+// Lazy-load Maps on focus or user interaction
 function lazyLoadMaps() {
-  // loadMaps();
+  loadMaps();
 }
 
 // Footer year
@@ -383,7 +502,27 @@ function initForm() {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      // 1. Validate Date
+      // 1. Validate Pickup Location (US Only)
+      const pickupInput = document.getElementById('pickup');
+      if (pickupInput) {
+        const isPickupValid = validateAddressField(pickupInput, 'pickupError');
+        if (!isPickupValid) {
+          pickupInput.focus();
+          return;
+        }
+      }
+
+      // 2. Validate Drop-off Location (US Only)
+      const dropoffInput = document.getElementById('dropoff');
+      if (dropoffInput) {
+        const isDropoffValid = validateAddressField(dropoffInput, 'dropoffError');
+        if (!isDropoffValid) {
+          dropoffInput.focus();
+          return;
+        }
+      }
+
+      // 3. Validate Date
       const dateInput = document.getElementById('date');
       if (dateInput) {
         const isDateValid = checkAndDisplayDateError(dateInput);
@@ -393,7 +532,7 @@ function initForm() {
         }
       }
 
-      // 2. Validate Time Slot Availability
+      // 4. Validate Time Slot Availability
       const timeCheck = getTimeSlotAvailability();
       if (timeCheck.status === 'occupied') {
         showBusyModal(timeCheck.titleKey, timeCheck.msgKey);
@@ -405,7 +544,7 @@ function initForm() {
         return;
       }
 
-      // 3. Success
+      // 5. Success
       const successMsg = currentTranslations['formSuccess'] ||
         'Thank you! Your ride request has been submitted. We will contact you shortly to confirm.';
       alert(successMsg);
