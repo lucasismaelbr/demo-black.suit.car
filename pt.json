@@ -19,6 +19,7 @@
   "tripOptionOneWayTrip": "ONE WAY TRIP",
   "tripOptionRoundTripWait": "ROUND TRIP WITH DESTINATION WAIT",
   "tripOptionScheduledReturn": "SCHEDULED RETURN TRIP",
+  "tripOptionLongDistance": "LONG-DISTANCE PRIVATE TRIP (110+ MILES)",
   "dateLabel": "Data do embarque (DD/MM/AAAA)",
   "datePlaceholder": "DD/MM/AAAA",
   "dateMask": "pt",
@@ -141,5 +142,11 @@
   "termsSec7Title": "7. Limitação de Responsabilidade e Força Maior",
   "termsSec7Text": "A Black Suit Car mantém seguro comercial total e licenças exigidas pelas leis dos Estados Unidos. Não nos responsabilizamos por atrasos decorrentes de circunstâncias de força maior fora de nosso controle, tais como tempestades severas, desastres naturais, bloqueios de vias ou acidentes graves nas rodovias.",
   "termsSec8Title": "8. Legislação Aplicável e Contato",
-  "termsSec8Text": "Estes Termos e Condições são regidos pelas leis dos Estados Unidos. Para dúvidas jurídicas, termos contratuais ou suporte, entre em contato com nossa equipe pelo e-mail info@blacksuitcar.com."
+  "termsSec8Text": "Estes Termos e Condições são regidos pelas leis dos Estados Unidos. Para dúvidas jurídicas, termos contratuais ou suporte, entre em contato com nossa equipe pelo e-mail info@blacksuitcar.com.",
+  "longDistanceTitle": "Viagem Particular de Longa Distância",
+  "longDistanceLead": "Esta viagem ultrapassa nosso limite de cálculo automático de 110 milhas (177 km).",
+  "longDistanceBody": "O transporte executivo de longa distância está disponível, mas exige uma cotação personalizada com base no destino, duração, cronograma e requisitos operacionais.",
+  "longDistanceExplore": "Conheça nossos serviços de Viagens Particulares de Longa Distância abaixo.",
+  "longDistanceBtnExplore": "Explorar Serviços",
+  "longDistanceBtnEdit": "Editar Solicitação"
 }

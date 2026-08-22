@@ -610,6 +610,105 @@ body.modal-open {
   font-size: 0.95rem;
 }
 
+/* =====================================================
+   LONG-DISTANCE PRIVATE TRIP MODAL (Matches Reference)
+   ===================================================== */
+.long-distance-modal-card {
+  max-width: 480px;
+  text-align: left;
+  padding: 2.25rem 2rem;
+  background: #111B29;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.95), 0 0 30px rgba(212, 175, 55, 0.18);
+  border-radius: 0.75rem;
+}
+
+.long-distance-modal-title {
+  font-size: 1.85rem;
+  line-height: 1.2;
+  color: #D4AF37;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+.long-distance-lead {
+  font-size: 1.05rem;
+  color: #F8F9FA;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.long-distance-body {
+  font-size: 0.95rem;
+  color: #D3DDE8;
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.long-distance-explore {
+  font-size: 0.98rem;
+  color: #F8F9FA;
+  margin-bottom: 1.75rem;
+  font-weight: 600;
+}
+
+.modal-actions-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.modal-btn-gold {
+  display: block;
+  width: 100%;
+  padding: 0.95rem 1.5rem;
+  background: #D4AF37;
+  color: #0B131F;
+  border: 1px solid #FFF1C5;
+  border-radius: var(--radius);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-top: 0;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+}
+
+.modal-btn-gold:hover {
+  background: #E5C158;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(212, 175, 55, 0.55);
+}
+
+.modal-btn-outline {
+  display: block;
+  width: 100%;
+  padding: 0.95rem 1.5rem;
+  background: #0B131F;
+  color: #D4AF37;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: var(--radius);
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: var(--font-family);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.modal-btn-outline:hover {
+  background: #152236;
+  border-color: #D4AF37;
+  color: #FFF1C5;
+  transform: translateY(-2px);
+}
+
 /* Calendar panel */
 .calendar-section {
   display: flex;

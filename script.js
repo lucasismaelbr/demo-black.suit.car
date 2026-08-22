@@ -490,7 +490,92 @@ function hideBusyModal() {
   document.body.classList.remove('modal-open');
 }
 
-// Form submission handler with complete validation (Date + Time Availability) & Contact Form
+// Long-Distance Modal Handlers (110+ Miles Private Trips)
+function showLongDistanceModal() {
+  const modal = document.getElementById('longDistanceModal');
+  if (!modal) return;
+  modal.classList.add('is-active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+
+  const editBtn = document.getElementById('longDistanceEditBtn');
+  if (editBtn) editBtn.focus();
+}
+
+function hideLongDistanceModal() {
+  const modal = document.getElementById('longDistanceModal');
+  if (!modal) return;
+  modal.classList.remove('is-active');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+}
+
+// Detect if a requested trip is a Long-Distance trip (> 110 miles)
+function isLongDistanceTrip(pickupText, dropoffText, tripTypeVal) {
+  if (tripTypeVal === 'LONG_DISTANCE_TRIP') return true;
+
+  const p = (pickupText || '').toLowerCase().trim();
+  const d = (dropoffText || '').toLowerCase().trim();
+
+  if (!p || !d) return false;
+
+  const cities = [
+    { name: 'miami', group: 'sofla' },
+    { name: 'fort lauderdale', group: 'sofla' },
+    { name: 'palm beach', group: 'sofla' },
+    { name: 'boca raton', group: 'sofla' },
+    { name: 'brickell', group: 'sofla' },
+    { name: 'orlando', group: 'cfl' },
+    { name: 'disney', group: 'cfl' },
+    { name: 'kissimmee', group: 'cfl' },
+    { name: 'tampa', group: 'tb' },
+    { name: 'st. petersburg', group: 'tb' },
+    { name: 'clearwater', group: 'tb' },
+    { name: 'naples', group: 'swfl' },
+    { name: 'fort myers', group: 'swfl' },
+    { name: 'key west', group: 'keys' },
+    { name: 'new york', group: 'nyc' },
+    { name: 'manhattan', group: 'nyc' },
+    { name: 'jfk', group: 'nyc' },
+    { name: 'lga', group: 'nyc' },
+    { name: 'philadelphia', group: 'philly' },
+    { name: 'boston', group: 'bos' },
+    { name: 'washington', group: 'dc' },
+    { name: 'los angeles', group: 'la' },
+    { name: 'lax', group: 'la' },
+    { name: 'san francisco', group: 'sf' },
+    { name: 'sfo', group: 'sf' },
+    { name: 'las vegas', group: 'vegas' },
+    { name: 'san diego', group: 'sd' }
+  ];
+
+  let pGroup = null;
+  let dGroup = null;
+
+  for (const c of cities) {
+    if (!pGroup && p.includes(c.name)) pGroup = c.group;
+    if (!dGroup && d.includes(c.name)) dGroup = c.group;
+  }
+
+  // Cross-metro trips that exceed 110 miles
+  if (pGroup && dGroup && pGroup !== dGroup) {
+    const longDistancePairs = [
+      ['sofla', 'cfl'], ['sofla', 'tb'], ['sofla', 'keys'], ['sofla', 'swfl'],
+      ['nyc', 'bos'], ['nyc', 'dc'], ['nyc', 'philly'],
+      ['la', 'vegas'], ['la', 'sf']
+    ];
+
+    for (const [g1, g2] of longDistancePairs) {
+      if ((pGroup === g1 && dGroup === g2) || (pGroup === g2 && dGroup === g1)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+// Form submission handler with complete validation (Date + Time Availability + Long Distance Check)
 function initForm() {
   const form = document.getElementById('rideForm');
   if (form) {
@@ -502,7 +587,17 @@ function initForm() {
       }
     });
 
-    // Modal close listeners
+    // Trip type listener
+    const tripTypeSelect = document.getElementById('tripType');
+    if (tripTypeSelect) {
+      tripTypeSelect.addEventListener('change', function () {
+        if (this.value === 'LONG_DISTANCE_TRIP') {
+          showLongDistanceModal();
+        }
+      });
+    }
+
+    // Modal close listeners for Busy Modal
     const closeBtn = document.getElementById('busyModalClose');
     if (closeBtn) {
       closeBtn.addEventListener('click', hideBusyModal);
@@ -515,9 +610,23 @@ function initForm() {
       });
     }
 
+    // Modal close listeners for Long Distance Modal
+    const longDistanceEditBtn = document.getElementById('longDistanceEditBtn');
+    if (longDistanceEditBtn) {
+      longDistanceEditBtn.addEventListener('click', hideLongDistanceModal);
+    }
+
+    const longDistanceModal = document.getElementById('longDistanceModal');
+    if (longDistanceModal) {
+      longDistanceModal.addEventListener('click', (e) => {
+        if (e.target === longDistanceModal) hideLongDistanceModal();
+      });
+    }
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal && modal.classList.contains('is-active')) {
-        hideBusyModal();
+      if (e.key === 'Escape') {
+        if (modal && modal.classList.contains('is-active')) hideBusyModal();
+        if (longDistanceModal && longDistanceModal.classList.contains('is-active')) hideLongDistanceModal();
       }
     });
 
@@ -544,7 +653,14 @@ function initForm() {
         }
       }
 
-      // 3. Validate Date
+      // 3. Long-Distance Check (>110 miles)
+      const tripTypeVal = tripTypeSelect ? tripTypeSelect.value : '';
+      if (pickupInput && dropoffInput && isLongDistanceTrip(pickupInput.value, dropoffInput.value, tripTypeVal)) {
+        showLongDistanceModal();
+        return;
+      }
+
+      // 4. Validate Date
       const dateInput = document.getElementById('date');
       if (dateInput) {
         const isDateValid = checkAndDisplayDateError(dateInput);
@@ -554,7 +670,7 @@ function initForm() {
         }
       }
 
-      // 4. Validate Time Slot Availability
+      // 5. Validate Time Slot Availability
       const timeCheck = getTimeSlotAvailability();
       if (timeCheck.status === 'occupied') {
         showBusyModal(timeCheck.titleKey, timeCheck.msgKey);

@@ -19,6 +19,7 @@
   "tripOptionOneWayTrip": "ONE WAY TRIP",
   "tripOptionRoundTripWait": "ROUND TRIP WITH DESTINATION WAIT",
   "tripOptionScheduledReturn": "SCHEDULED RETURN TRIP",
+  "tripOptionLongDistance": "LONG-DISTANCE PRIVATE TRIP (110+ MILES)",
   "dateLabel": "Departure Date (MM/DD/YYYY)",
   "datePlaceholder": "MM/DD/YYYY",
   "dateMask": "en",
@@ -141,5 +142,11 @@
   "termsSec7Title": "7. Limitation of Liability & Force Majeure",
   "termsSec7Text": "Black Suit Car maintains full commercial vehicle insurance and professional chauffeur licensing in compliance with US laws. Black Suit Car is not liable for travel delays caused by extraordinary circumstances beyond our reasonable control, such as severe weather, natural disasters, road closures, or catastrophic traffic accidents.",
   "termsSec8Title": "8. Governing Law & Contact",
-  "termsSec8Text": "These Terms & Conditions are governed by and construed in accordance with the laws of the United States. For any legal inquiries, contract details, or assistance, please contact our concierge team at info@blacksuitcar.com."
+  "termsSec8Text": "These Terms & Conditions are governed by and construed in accordance with the laws of the United States. For any legal inquiries, contract details, or assistance, please contact our concierge team at info@blacksuitcar.com.",
+  "longDistanceTitle": "Long-Distance Private Trip",
+  "longDistanceLead": "This trip exceeds our 110-mile automatic pricing limit.",
+  "longDistanceBody": "Long-distance private transportation is still available, but requires a customized quote based on destination, duration, scheduling, and operational requirements.",
+  "longDistanceExplore": "Explore our Long-Distance Private Trip services below.",
+  "longDistanceBtnExplore": "Explore Services",
+  "longDistanceBtnEdit": "Edit Request"
 }

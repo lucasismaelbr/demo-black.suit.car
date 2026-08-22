@@ -102,6 +102,7 @@
                 <option value="ONE_WAY_TRIP" data-i18n="tripOptionOneWayTrip">ONE WAY TRIP</option>
                 <option value="ROUND_TRIP_WITH_WAIT" data-i18n="tripOptionRoundTripWait">ROUND TRIP WITH DESTINATION WAIT</option>
                 <option value="SCHEDULED_RETURN_TRIP" data-i18n="tripOptionScheduledReturn">SCHEDULED RETURN TRIP</option>
+                <option value="LONG_DISTANCE_TRIP" data-i18n="tripOptionLongDistance">LONG-DISTANCE PRIVATE TRIP (110+ MILES)</option>
               </select>
             </div>
           </div>
@@ -278,7 +279,21 @@
     </div>
   </div>
 
-  <!-- Custom JS for i18n, date mask, and Google Maps Autocomplete -->
+  <!-- Long-Distance Private Trip Modal (110+ Miles) -->
+  <div class="modal-overlay" id="longDistanceModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card long-distance-modal-card">
+      <h2 class="long-distance-modal-title" data-i18n="longDistanceTitle">Long-Distance Private Trip</h2>
+      <p class="long-distance-lead" data-i18n="longDistanceLead">This trip exceeds our 110-mile automatic pricing limit.</p>
+      <p class="long-distance-body" data-i18n="longDistanceBody">Long-distance private transportation is still available, but requires a customized quote based on destination, duration, scheduling, and operational requirements.</p>
+      <p class="long-distance-explore" data-i18n="longDistanceExplore">Explore our Long-Distance Private Trip services below.</p>
+      <div class="modal-actions-stacked">
+        <a href="services.html" class="modal-btn-gold" data-i18n="longDistanceBtnExplore">Explore Services</a>
+        <button type="button" class="modal-btn-outline" id="longDistanceEditBtn" data-i18n="longDistanceBtnEdit">Edit Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom JS for i18n, date mask, and form handling -->
   <script src="script.js" defer></script>
 </body>
 </html>
