@@ -1,7 +1,8 @@
-﻿// script.js - i18n, date mask, Google Maps Autocomplete (vanilla JS)
+// script.js - i18n, date mask, Google Maps Autocomplete (vanilla JS)
 
 const defaultLang = 'en';
 let mapsLoaded = false;
+let currentDateMask = 'en'; // 'en' = MM/DD/YYYY | 'pt' = DD/MM/AAAA
 
 // Load translation JSON and apply to DOM
 async function loadTranslations(lang) {
@@ -20,6 +21,14 @@ async function loadTranslations(lang) {
       if (t[key] !== undefined) el.placeholder = t[key];
     });
 
+    // Update date mask locale
+    if (t.dateMask) {
+      currentDateMask = t.dateMask;
+      // Clear the date field so old partial input doesn't confuse new format
+      const dateInput = document.getElementById('date');
+      if (dateInput && dateInput.value === '') dateInput.value = '';
+    }
+
     document.documentElement.lang = lang;
   } catch (e) {
     console.error('i18n error:', e);
@@ -33,13 +42,33 @@ function initLangSwitcher() {
   });
 }
 
-// Date mask MM/DD/YYYY
+// Date mask – locale-aware
+// EN: MM/DD/YYYY  |  PT: DD/MM/AAAA
+// The separator is always '/' for readability; 8 digits total.
 function maskDate(input) {
   input.addEventListener('input', function () {
+    // Strip non-digits
     let v = this.value.replace(/\D/g, '').slice(0, 8);
-    if (v.length >= 5) v = v.slice(0,2) + '/' + v.slice(2,4) + '/' + v.slice(4);
-    else if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
+    // Same positional structure for both locales: XX/XX/XXXX
+    if (v.length >= 5) {
+      v = v.slice(0, 2) + '/' + v.slice(2, 4) + '/' + v.slice(4);
+    } else if (v.length >= 3) {
+      v = v.slice(0, 2) + '/' + v.slice(2);
+    }
     this.value = v;
+  });
+
+  // Validate on blur
+  input.addEventListener('blur', function () {
+    const v = this.value;
+    if (!v) return;
+    const parts = v.split('/');
+    if (parts.length !== 3 || parts[2].length !== 4) {
+      const hint = currentDateMask === 'pt' ? 'DD/MM/AAAA' : 'MM/DD/YYYY';
+      this.setCustomValidity('Use the format ' + hint);
+    } else {
+      this.setCustomValidity('');
+    }
   });
 }
 

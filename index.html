@@ -30,15 +30,15 @@
       <h2 id="formTitle" data-i18n="formTitle">Reserve Your Ride</h2>
       <form id="rideForm" novalidate>
         <div class="form-group">
-          <label for="pickup" data-i18n="pickupLabel">Local A (Embarque)</label>
+          <label for="pickup" data-i18n="pickupLabel">Pickup Location (A)</label>
           <input type="text" id="pickup" name="pickup" required data-i18n-placeholder="pickupPlaceholder" placeholder="Enter pickup location" />
         </div>
         <div class="form-group">
-          <label for="dropoff" data-i18n="dropoffLabel">Local B (Desembarque)</label>
-          <input type="text" id="dropoff" name="dropoff" required data-i18n-placeholder="dropoffPlaceholder" placeholder="Enter drop‑off location" />
+          <label for="dropoff" data-i18n="dropoffLabel">Drop-off Location (B)</label>
+          <input type="text" id="dropoff" name="dropoff" required data-i18n-placeholder="dropoffPlaceholder" placeholder="Enter drop-off location" />
         </div>
         <div class="form-group">
-          <label for="passengers" data-i18n="passengersLabel">Quantidade de passageiros</label>
+          <label for="passengers" data-i18n="passengersLabel">Number of Passengers</label>
           <input type="number" id="passengers" name="passengers" min="1" max="4" value="1" required />
         </div>
         <div class="form-group">
@@ -51,8 +51,8 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="date" data-i18n="dateLabel">Data do embarque (MM/DD/YYYY)</label>
-          <input type="text" id="date" name="date" placeholder="MM/DD/YYYY" required pattern="^(0[1-9]|1[0-2])\/([0-2][0-9]|3[01])\/\d{4}$" />
+          <label for="date" data-i18n="dateLabel">Departure Date (MM/DD/YYYY)</label>
+          <input type="text" id="date" name="date" placeholder="MM/DD/YYYY" data-i18n-placeholder="datePlaceholder" required />
         </div>
         <div class="form-group">
           <label for="specialRequests" data-i18n="specialRequestsLabel">Observações (Special Requests)</label>
