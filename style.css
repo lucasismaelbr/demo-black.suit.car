@@ -33,8 +33,15 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
+  /* Safe area for iPhone Dynamic Island / notch */
+  padding-top: max(1rem, env(safe-area-inset-top));
+  padding-left: max(2rem, env(safe-area-inset-left));
+  padding-right: max(2rem, env(safe-area-inset-right));
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .logo {
@@ -200,13 +207,143 @@ body {
   font-size: 0.9rem;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+/* =====================================================
+   RESPONSIVE – mobile-first
+   Targets: iPhone 15 Pro (393px), iPhone 15 Pro Max (430px),
+            Google Pixel 8 Pro (412px)
+   ===================================================== */
+
+/* ── Tablets and below (≤ 1024px) ── */
+@media (max-width: 1024px) {
   .content-grid {
     grid-template-columns: 1fr;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
+    gap: 1.5rem;
   }
-  .hero h1 { font-size: 2rem; }
-  .hero p { font-size: 1rem; }
-  .reservation-form, .calendar-section { padding: 1rem; }
+  .hero h1 { font-size: 2.2rem; }
+}
+
+/* ── Phones (≤ 480px) – flagship iPhones & Pixels ── */
+@media (max-width: 480px) {
+
+  /* Prevent horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* Header: tighter, logo smaller */
+  .site-header {
+    padding: 0.75rem 1rem;
+  }
+  .logo {
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+  }
+  .lang-btn {
+    font-size: 1.3rem;
+    /* 48px touch target per Apple/Google HIG */
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lang-indicator {
+    font-size: 1rem;
+  }
+
+  /* Hero: compact with less whitespace */
+  .hero {
+    padding: 2.5rem 1rem 2rem;
+  }
+  .hero h1 {
+    font-size: 1.65rem;
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
+  }
+  .hero p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-muted);
+  }
+
+  /* Grid: single column, edge-to-edge padding */
+  .content-grid {
+    grid-template-columns: 1fr;
+    padding: 0 0.75rem;
+    gap: 1.25rem;
+    margin: 1.25rem auto;
+  }
+
+  /* Form panel: reduced padding */
+  .reservation-form {
+    padding: 1.25rem 1rem;
+    border-radius: 0.75rem;
+  }
+  .reservation-form h2 {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Form groups: larger touch targets */
+  .form-group {
+    margin-bottom: 0.85rem;
+  }
+  .form-group label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem 0.85rem;   /* 48px effective height on mobile */
+    font-size: 1rem;             /* prevent iOS zoom on focus */
+    border-radius: 0.5rem;
+    -webkit-appearance: none;    /* clean look on iOS */
+    appearance: none;
+  }
+  .form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  /* CTA button: big tap target */
+  .cta-button {
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 0.75rem;
+    margin-top: 1.25rem;
+    /* Subtle gold glow for mobile premium feel */
+    box-shadow: 0 0 18px rgba(184,134,11,0.35);
+    letter-spacing: 0.03em;
+  }
+
+  /* Calendar: fixed height so it scrolls internally */
+  .calendar-section {
+    padding: 1rem 0.75rem;
+    border-radius: 0.75rem;
+  }
+  .calendar-section h2 {
+    font-size: 0.78rem;
+    margin-bottom: 0.5rem;
+  }
+  .calendar-section iframe {
+    height: 380px;               /* comfortable on 812px+ screen height */
+    border-radius: 0.5rem;
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 1rem 1.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ── Extra narrow fallback (≤ 360px) ── */
+@media (max-width: 360px) {
+  .hero h1 { font-size: 1.45rem; }
+  .logo   { font-size: 1rem; }
+  .content-grid { padding: 0 0.5rem; }
 }
