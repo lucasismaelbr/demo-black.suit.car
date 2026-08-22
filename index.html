@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Black Suit Car - Reserve Your Ride</title>
+  <meta name="description" content="Reserve a premium car ride in the US or Brazil. bilingual landing page with calendar and map integration." />
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">Black Suit Car</div>
+    <nav class="lang-switcher" aria-label="Language selector">
+      <button class="lang-btn" data-lang="en" aria-label="English">🇺🇸</button>
+      <button class="lang-btn" data-lang="pt" aria-label="Português">🇧🇷</button>
+      <span class="lang-indicator" aria-hidden="true">⇄</span>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <section class="hero">
+      <h1 data-i18n="heroTitle">Premium Ride Service</h1>
+      <p data-i18n="heroSubtitle">Travel in comfort across the US and Brazil.</p>
+    </section>
+
+    <section class="reservation-form" aria-labelledby="formTitle">
+      <h2 id="formTitle" data-i18n="formTitle">Reserve Your Ride</h2>
+      <form id="rideForm" novalidate>
+        <div class="form-group">
+          <label for="pickup" data-i18n="pickupLabel">Local A (Embarque)</label>
+          <input type="text" id="pickup" name="pickup" required data-i18n-placeholder="pickupPlaceholder" placeholder="Enter pickup location" />
+        </div>
+        <div class="form-group">
+          <label for="dropoff" data-i18n="dropoffLabel">Local B (Desembarque)</label>
+          <input type="text" id="dropoff" name="dropoff" required data-i18n-placeholder="dropoffPlaceholder" placeholder="Enter drop‑off location" />
+        </div>
+        <div class="form-group">
+          <label for="passengers" data-i18n="passengersLabel">Quantidade de passageiros</label>
+          <input type="number" id="passengers" name="passengers" min="1" max="4" value="1" required />
+        </div>
+        <div class="form-group">
+          <label for="tripType" data-i18n="tripTypeLabel">Trip Type</label>
+          <select id="tripType" name="tripType" required>
+            <option value="ONE_WAY_RIDE" data-i18n="tripOptionOneWayRide">ONE WAY RIDE</option>
+            <option value="ONE_WAY_TRIP" data-i18n="tripOptionOneWayTrip">ONE WAY TRIP</option>
+            <option value="ROUND_TRIP_WITH_WAIT" data-i18n="tripOptionRoundTripWait">ROUND TRIP WITH DESTINATION WAIT</option>
+            <option value="SCHEDULED_RETURN_TRIP" data-i18n="tripOptionScheduledReturn">SCHEDULED RETURN TRIP</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="date" data-i18n="dateLabel">Data do embarque (MM/DD/YYYY)</label>
+          <input type="text" id="date" name="date" placeholder="MM/DD/YYYY" required pattern="^(0[1-9]|1[0-2])\/([0-2][0-9]|3[01])\/\d{4}$" />
+        </div>
+        <div class="form-group">
+          <label for="specialRequests" data-i18n="specialRequestsLabel">Observações (Special Requests)</label>
+          <textarea id="specialRequests" name="specialRequests" rows="3" placeholder="Any special requests?" data-i18n-placeholder="specialRequestsPlaceholder"></textarea>
+        </div>
+        <button type="submit" class="cta-button" data-i18n="ctaButton">Check Black Suit Price</button>
+      </form>
+    </section>
+
+    <section class="calendar-section" aria-label="Calendar">
+      <h2 data-i18n="calendarTitle">Disponibilidade Semanal</h2>
+      <iframe src="https://calendar.google.com/calendar/u/0/embed?src=info@blacksuitcar.com&ctz=America/New_York&mode=WEEK&showTitle=0&showNav=1&showPrint=0&showCalendars=0&showTz=0" style="border:0" width="800" height="600" scrolling="no"></iframe>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Black Suit Car. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
