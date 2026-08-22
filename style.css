@@ -1098,6 +1098,67 @@ body.modal-open {
 }
 
 /* =====================================================
+   LEGAL PAGES – Terms & Conditions, Privacy Policy
+   ===================================================== */
+.legal-container {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  background: var(--color-navy-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius);
+  padding: 3rem 2.5rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+.legal-meta {
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.legal-badge {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid var(--border-gold);
+  border-radius: 2rem;
+  color: var(--color-gold);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.legal-section {
+  margin-bottom: 2.25rem;
+}
+
+.legal-section:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.legal-section h2 {
+  font-size: 1.25rem;
+  color: var(--color-gold);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.legal-section p {
+  color: var(--color-muted);
+  line-height: 1.8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.legal-cta {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  text-align: center;
+}
+
+/* =====================================================
    FOOTER
    ===================================================== */
 .site-footer {
