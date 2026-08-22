@@ -700,6 +700,24 @@ function initForm() {
       contactForm.reset();
     });
   }
+
+  // Handle Request a Service Page Form (Long-Distance 110+ Miles)
+  const customServiceForm = document.getElementById('customServiceForm');
+  if (customServiceForm) {
+    customServiceForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const agree = document.getElementById('reqAgreement');
+      if (agree && !agree.checked) {
+        alert(currentTranslations['reqConsentTitle'] || 'Please agree to the Terms & Conditions and Privacy Policy.');
+        agree.focus();
+        return;
+      }
+      const successMsg = currentTranslations['reqSuccessAlert'] ||
+        'Thank you for your request! Our concierge team will review your details and send your customized quote shortly.';
+      alert(successMsg);
+      customServiceForm.reset();
+    });
+  }
 }
 
 // Mobile hamburger menu toggle

@@ -1258,6 +1258,160 @@ body.modal-open {
 }
 
 /* =====================================================
+   REQUEST A SERVICE FORM (Long Distance 110+ Miles)
+   ===================================================== */
+.service-request-container {
+  max-width: 780px;
+  margin: 2.5rem auto 5rem;
+  padding: 0 1.5rem;
+}
+
+.service-request-main-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #D4AF37;
+  letter-spacing: -0.02em;
+  margin-bottom: 2.5rem;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+}
+
+.service-request-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.service-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.service-section-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #F8F9FA;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+  width: 100%;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.required-badge {
+  color: #8A9BA8;
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-left: 0.25rem;
+}
+
+.service-field-note {
+  font-size: 0.82rem;
+  color: #8A9BA8;
+  margin: 0.15rem 0 0.5rem;
+  line-height: 1.4;
+}
+
+.phone-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.phone-row .sub-label {
+  font-size: 0.8rem;
+  color: #8A9BA8;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.sub-label-note {
+  font-size: 0.8rem;
+  color: #8A9BA8;
+  margin-top: 0.35rem;
+  display: block;
+}
+
+.service-notice-banner {
+  font-size: 0.88rem;
+  color: #D3DDE8;
+  background: rgba(212, 175, 55, 0.08);
+  border-left: 3px solid #D4AF37;
+  padding: 0.9rem 1.1rem;
+  border-radius: 0.35rem;
+  margin: 1.5rem 0 0.5rem;
+  line-height: 1.5;
+}
+
+.consent-group {
+  margin: 1.5rem 0 2rem;
+  padding-top: 1rem;
+}
+
+.consent-title {
+  font-size: 0.95rem;
+  color: #F8F9FA;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.consent-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #F8F9FA;
+}
+
+.consent-label input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: #D4AF37;
+  cursor: pointer;
+}
+
+.submit-action-area {
+  margin-top: 0.5rem;
+}
+
+.submit-request-btn {
+  background: #FFC107 !important;
+  color: #080D14 !important;
+  font-weight: 800 !important;
+  padding: 1.1rem 2rem !important;
+  border-radius: 0.45rem !important;
+  font-size: 1.05rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  box-shadow: 0 4px 20px rgba(255, 193, 7, 0.35) !important;
+  width: auto;
+  min-width: 220px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.submit-request-btn:hover {
+  background: #FFD54F !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(255, 193, 7, 0.55) !important;
+}
+
+@media (max-width: 768px) {
+  .phone-row {
+    grid-template-columns: 1fr;
+  }
+  .service-request-main-title {
+    font-size: 2.2rem;
+  }
+}
+
+/* =====================================================
    FOOTER
    ===================================================== */
 .site-footer {

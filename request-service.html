@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Request a Service – Black Suit Car</title>
+  <meta name="description" content="Request a private chauffeur service for long-distance trips over 110 miles, city-to-city transfers, and VIP ground transportation across the United States." />
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">Black Suit Car</a>
+
+    <!-- Hamburger toggle (mobile) -->
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
+
+    <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+      <a href="index.html"            data-i18n="navHome">Home</a>
+      <a href="services.html"         data-i18n="navServices">Private Chauffeur Services</a>
+      <a href="request-service.html"  data-i18n="navRequestService" class="active">Request a Service</a>
+      <a href="about.html"            data-i18n="navAbout">About Us</a>
+      <a href="contact.html"          data-i18n="navContact">Contact</a>
+      <a href="faq.html"              data-i18n="navFaq">FAQ</a>
+    </nav>
+
+    <nav class="lang-switcher" aria-label="Language selector">
+      <button class="lang-btn" data-lang="en" aria-label="English">🇺🇸</button>
+      <button class="lang-btn" data-lang="pt" aria-label="Português">🇧🇷</button>
+      <span class="lang-indicator" aria-hidden="true">⇄</span>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <div class="service-request-container">
+      <h1 class="service-request-main-title" data-i18n="reqMainTitle">Request a Service</h1>
+
+      <form id="customServiceForm" class="service-request-form" novalidate>
+
+        <!-- ================= 1. CONTACT INFORMATION ================= -->
+        <fieldset class="service-fieldset">
+          <legend class="service-section-heading" data-i18n="reqSec1Title">1. CONTACT INFORMATION</legend>
+
+          <div class="form-row">
+            <div class="form-group form-group--half">
+              <label for="reqFirstName">
+                <span data-i18n="reqFirstNameLabel">First Name</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+              </label>
+              <input type="text" id="reqFirstName" name="firstName" required autocomplete="given-name" />
+            </div>
+
+            <div class="form-group form-group--half">
+              <label for="reqLastName">
+                <span data-i18n="reqLastNameLabel">Last Name</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+              </label>
+              <input type="text" id="reqLastName" name="lastName" required autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reqEmail">
+              <span data-i18n="reqEmailLabel">Email</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+            </label>
+            <input type="email" id="reqEmail" name="email" required autocomplete="email" />
+          </div>
+
+          <div class="form-group">
+            <label>
+              <span data-i18n="reqPhoneLabel">Phone</span>
+            </label>
+            <p class="service-field-note" data-i18n="reqPhoneNote">Calls may not be answered while driving.</p>
+            <div class="form-row phone-row">
+              <div class="form-group form-group--country">
+                <label for="reqCountry" class="sub-label" data-i18n="reqCountryLabel">Country</label>
+                <select id="reqCountry" name="country">
+                  <option value="US" selected>United States (+1)</option>
+                  <option value="BR">Brazil (+55)</option>
+                  <option value="CA">Canada (+1)</option>
+                  <option value="GB">United Kingdom (+44)</option>
+                  <option value="PT">Portugal (+351)</option>
+                  <option value="FR">France (+33)</option>
+                  <option value="DE">Germany (+49)</option>
+                  <option value="IT">Italy (+39)</option>
+                  <option value="ES">Spain (+34)</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+              <div class="form-group form-group--number">
+                <label for="reqPhone" class="sub-label" data-i18n="reqNumberLabel">Number</label>
+                <input type="tel" id="reqPhone" name="phone" placeholder="+1" required autocomplete="tel" />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ================= 2. SERVICE INFORMATION ================= -->
+        <fieldset class="service-fieldset">
+          <legend class="service-section-heading" data-i18n="reqSec2Title">2. SERVICE INFORMATION</legend>
+
+          <div class="form-group">
+            <label for="reqServiceType">
+              <span data-i18n="reqSelectServiceLabel">Select a Service</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+            </label>
+            <select id="reqServiceType" name="serviceType" required>
+              <option value="" data-i18n="reqOptionSelect">-</option>
+              <option value="LONG_DISTANCE" selected data-i18n="reqOptionLongDistance">Long-Distance Private Trip (110+ Miles)</option>
+              <option value="CITY_TO_CITY" data-i18n="reqOptionCityToCity">City-to-City Executive Transfer</option>
+              <option value="HOURLY" data-i18n="reqOptionHourly">Hourly As-Directed Chauffeur</option>
+              <option value="AIRPORT_VIP" data-i18n="reqOptionAirportVip">Private Airport VIP Transfer</option>
+              <option value="CORPORATE_EVENT" data-i18n="reqOptionCorporate">Corporate / Special Event Transportation</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="reqPassengers">
+              <span data-i18n="reqPassengersLabel">Number of Passenger</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+            </label>
+            <input type="number" id="reqPassengers" name="passengers" min="1" max="6" value="1" required />
+          </div>
+
+          <div class="form-group">
+            <label for="reqDetail">
+              <span data-i18n="reqDetailLabel">Service Detail</span>
+            </label>
+            <textarea id="reqDetail" name="detail" rows="4" data-i18n-placeholder="reqDetailPlaceholder" placeholder="Please include any special instructions, preferences, or additional details relevant to your request."></textarea>
+          </div>
+
+          <p class="service-notice-banner" data-i18n="reqEasternTimeNotice">
+            All pickup and drop-off times must be provided in Eastern Time (ET – USA), regardless of your current location or time zone.
+          </p>
+        </fieldset>
+
+        <!-- ================= 3. PICKUP INFORMATION ================= -->
+        <fieldset class="service-fieldset">
+          <legend class="service-section-heading" data-i18n="reqSec3Title">3. PICKUP INFORMATION</legend>
+
+          <div class="form-group">
+            <label for="reqPickupDate">
+              <span data-i18n="reqDateLabel">Date</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+            </label>
+            <input type="date" id="reqPickupDate" name="pickupDate" required />
+          </div>
+
+          <div class="form-group">
+            <label for="reqPickupTime">
+              <span data-i18n="reqTimeLabel">Time</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+            </label>
+            <input type="time" id="reqPickupTime" name="pickupTime" required />
+            <span class="sub-label-note" data-i18n="reqInEasternTime">in Eastern Time</span>
+          </div>
+
+          <div class="form-group">
+            <label for="reqPickupLocation">
+              <span data-i18n="reqLocationLabel">Location</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+            </label>
+            <input type="text" id="reqPickupLocation" name="pickupLocation" list="usLocationsList" required data-i18n-placeholder="reqLocationPlaceholder" placeholder="Street address, airport, or hotel name" autocomplete="off" />
+          </div>
+
+          <div class="form-group">
+            <label for="reqPickupType">
+              <span data-i18n="reqTypeLabel">Type</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+            </label>
+            <select id="reqPickupType" name="pickupType" required>
+              <option value="" data-i18n="reqOptionSelect">-</option>
+              <option value="AIRPORT" data-i18n="reqTypeAirport">Airport Terminal (Commercial / Private FBO)</option>
+              <option value="HOTEL" data-i18n="reqTypeHotel">Hotel / Resort</option>
+              <option value="RESIDENTIAL" data-i18n="reqTypeResidential">Residential / Private Address</option>
+              <option value="CORPORATE" data-i18n="reqTypeCorporate">Corporate Office / Business</option>
+              <option value="CRUISE" data-i18n="reqTypeCruise">Cruise Port / Marine Terminal</option>
+              <option value="OTHER" data-i18n="reqTypeOther">Other Venue</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <!-- ================= 4. DROP-OFF INFORMATION ================= -->
+        <fieldset class="service-fieldset">
+          <legend class="service-section-heading" data-i18n="reqSec4Title">4. DROP-OFF INFORMATION</legend>
+
+          <div class="form-group">
+            <label for="reqDropoffDate">
+              <span data-i18n="reqDateLabel">Date</span>
+            </label>
+            <input type="date" id="reqDropoffDate" name="dropoffDate" />
+          </div>
+
+          <div class="form-group">
+            <label for="reqDropoffTime">
+              <span data-i18n="reqTimeLabel">Time</span>
+            </label>
+            <input type="time" id="reqDropoffTime" name="dropoffTime" />
+            <span class="sub-label-note" data-i18n="reqInEasternTime">in Eastern Time</span>
+          </div>
+
+          <div class="form-group">
+            <label for="reqDropoffLocation">
+              <span data-i18n="reqLocationLabel">Location</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+            </label>
+            <input type="text" id="reqDropoffLocation" name="dropoffLocation" list="usLocationsList" required data-i18n-placeholder="reqLocationPlaceholder" placeholder="Street address, airport, or hotel name" autocomplete="off" />
+          </div>
+
+          <div class="form-group">
+            <label for="reqDropoffType">
+              <span data-i18n="reqTypeLabel">Type</span> <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+            </label>
+            <select id="reqDropoffType" name="dropoffType" required>
+              <option value="" data-i18n="reqOptionSelect">-</option>
+              <option value="AIRPORT" data-i18n="reqTypeAirport">Airport Terminal (Commercial / Private FBO)</option>
+              <option value="HOTEL" data-i18n="reqTypeHotel">Hotel / Resort</option>
+              <option value="RESIDENTIAL" data-i18n="reqTypeResidential">Residential / Private Address</option>
+              <option value="CORPORATE" data-i18n="reqTypeCorporate">Corporate Office / Business</option>
+              <option value="CRUISE" data-i18n="reqTypeCruise">Cruise Port / Marine Terminal</option>
+              <option value="OTHER" data-i18n="reqTypeOther">Other Venue</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <!-- US Popular Airports & City Hubs Suggestions -->
+        <datalist id="usLocationsList">
+          <option value="Miami International Airport (MIA), Miami, FL"></option>
+          <option value="Fort Lauderdale-Hollywood International Airport (FLL), FL"></option>
+          <option value="Orlando International Airport (MCO), Orlando, FL"></option>
+          <option value="John F. Kennedy International Airport (JFK), New York, NY"></option>
+          <option value="LaGuardia Airport (LGA), New York, NY"></option>
+          <option value="Newark Liberty International Airport (EWR), Newark, NJ"></option>
+          <option value="Los Angeles International Airport (LAX), Los Angeles, CA"></option>
+          <option value="Hartsfield-Jackson Atlanta International Airport (ATL), GA"></option>
+          <option value="O'Hare International Airport (ORD), Chicago, IL"></option>
+          <option value="Dallas/Fort Worth International Airport (DFW), TX"></option>
+          <option value="Boston Logan International Airport (BOS), Boston, MA"></option>
+          <option value="San Francisco International Airport (SFO), CA"></option>
+          <option value="South Beach, Miami Beach, FL"></option>
+          <option value="Brickell, Miami, FL"></option>
+          <option value="Manhattan, New York, NY"></option>
+          <option value="Downtown Orlando, FL"></option>
+          <option value="Walt Disney World Resort, Orlando, FL"></option>
+        </datalist>
+
+        <!-- Consent & Terms Agreement -->
+        <div class="consent-group">
+          <p class="consent-title">
+            <span data-i18n="reqConsentTitle">I agree to the Service Description, Terms &amp; Conditions, and Privacy Policy</span>
+            <span class="required-badge" data-i18n="reqRequiredText">(required)</span>
+          </p>
+          <label class="consent-label" for="reqAgreement">
+            <input type="checkbox" id="reqAgreement" name="agreement" required />
+            <span class="consent-custom-radio"></span>
+            <span class="consent-text" data-i18n="reqYes">Yes</span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="submit-action-area">
+          <button type="submit" class="cta-button submit-request-btn" data-i18n="reqSubmitBtn">SUBMIT REQUEST</button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3 class="footer-heading" data-i18n="footerQuickLinksTitle">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="about.html"           data-i18n="footerAbout">About Us</a></li>
+          <li><a href="contact.html"         data-i18n="footerContact">Contact</a></li>
+          <li><a href="services.html"        data-i18n="footerServices">Private Chauffeur Services</a></li>
+          <li><a href="request-service.html" data-i18n="navRequestService">Request a Service (110+ Miles)</a></li>
+          <li><a href="terms.html"           data-i18n="footerTerms">Terms &amp; Conditions</a></li>
+          <li><a href="faq.html"             data-i18n="footerFaq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Black Suit Car. <span data-i18n="footerRights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
