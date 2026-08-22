@@ -43,6 +43,8 @@ body {
   z-index: 100;
   border-bottom: 1px solid rgba(184,134,11,0.15);
   flex-wrap: wrap;
+  /* Required so the dropdown positions relative to the header */
+  position: relative;
 }
 
 .logo {
@@ -87,6 +89,48 @@ body {
   gap: 0.35rem;
   margin-left: auto;
   flex-shrink: 0;
+}
+
+/* ── Hamburger button ── */
+.nav-toggle {
+  display: none;           /* hidden on desktop */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius);
+  transition: background var(--transition);
+  order: -1;               /* appear before logo on mobile */
+  flex-shrink: 0;
+}
+.nav-toggle:hover { background: rgba(184,134,11,0.1); }
+
+.burger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animate to X when active */
+.nav-toggle.is-active .burger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle.is-active .burger-line:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.nav-toggle.is-active .burger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .lang-btn {
@@ -428,6 +472,58 @@ body {
     gap: 1.5rem;
   }
   .hero h1 { font-size: 2.2rem; }
+
+  /* Show hamburger, hide nav links inline */
+  .nav-toggle {
+    display: flex;
+  }
+
+  .main-nav {
+    /* Slide-down dropdown */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 2px solid rgba(184,134,11,0.4);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    z-index: 200;
+    /* Keep flex but hidden by default */
+    flex: unset;
+  }
+
+  /* Open state */
+  .main-nav.nav-open {
+    max-height: 400px;
+    padding: 0.5rem 0 1rem;
+  }
+
+  .main-nav a {
+    padding: 0.9rem 1.5rem;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .main-nav a:last-child {
+    border-bottom: none;
+  }
+  .main-nav a:hover,
+  .main-nav a.active {
+    background: rgba(184,134,11,0.12);
+    padding-left: 2rem;
+  }
+
+  /* Prevent body scroll when menu open */
+  body.menu-open {
+    overflow: hidden;
+  }
 }
 
 /* ── Phones (≤ 480px) – flagship iPhones & Pixels ── */

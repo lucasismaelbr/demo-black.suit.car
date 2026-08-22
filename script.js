@@ -126,12 +126,64 @@ function initForm() {
   });
 }
 
+// Mobile hamburger menu toggle
+function initMobileMenu() {
+  const toggle = document.getElementById('navToggle');
+  const nav    = document.getElementById('mainNav');
+  if (!toggle || !nav) return;
+
+  function openMenu() {
+    nav.classList.add('nav-open');
+    toggle.classList.add('is-active');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open');
+  }
+
+  function closeMenu() {
+    nav.classList.remove('nav-open');
+    toggle.classList.remove('is-active');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+  }
+
+  function toggleMenu() {
+    nav.classList.contains('nav-open') ? closeMenu() : openMenu();
+  }
+
+  // Toggle on hamburger click
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  // Close when a nav link is clicked (navigation or anchor)
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('nav-open') && !nav.contains(e.target) && e.target !== toggle) {
+      closeMenu();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('nav-open')) {
+      closeMenu();
+      toggle.focus();
+    }
+  });
+}
+
 // Init
 document.addEventListener('DOMContentLoaded', () => {
   initLangSwitcher();
   loadTranslations(defaultLang);
   setYear();
   initForm();
+  initMobileMenu();
 
   const dateInput = document.getElementById('date');
   if (dateInput) maskDate(dateInput);
