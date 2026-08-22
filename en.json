@@ -18,5 +18,7 @@
   "specialRequestsLabel": "Special Requests",
   "specialRequestsPlaceholder": "Any special requests?",
   "ctaButton": "Check Black Suit Price",
-  "calendarTitle": "Disponibilidade Semanal"
+  "calendarHeader": "CHECK IF YOUR DESIRED TIME IS AVAILABLE BEFORE REQUESTING SERVICE.",
+  "calendarHours": "Operating Hours: 5:00 AM – 10:00 PM ET",
+  "calendarNote": "Transportation services outside these hours may be available with prior approval."
 }

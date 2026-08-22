@@ -18,5 +18,7 @@
   "specialRequestsLabel": "Observações (Special Requests)",
   "specialRequestsPlaceholder": "Algum pedido especial?",
   "ctaButton": "Ver preço Black Suit",
-  "calendarTitle": "Disponibilidade Semanal"
+  "calendarHeader": "VERIFIQUE SE O HORÁRIO DESEJADO ESTÁ DISPONÍVEL ANTES DE SOLICITAR O SERVIÇO.",
+  "calendarHours": "Horário de atendimento: 5:00 AM – 10:00 PM (hora de Nova York)",
+  "calendarNote": "Serviços fora desse horário podem estar disponíveis mediante aprovação prévia."
 }
