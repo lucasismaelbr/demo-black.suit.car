@@ -330,6 +330,74 @@ body {
   box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
 }
 
+/* Prevent Chrome / Safari / Edge autofill from turning input white or yellow */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #F8F9FA !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0A101A inset !important;
+  box-shadow: 0 0 0px 1000px #0A101A inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* =====================================================
+   GOOGLE PLACES AUTOCOMPLETE DROPDOWN (Luxury Gold & Navy)
+   ===================================================== */
+.pac-container {
+  background-color: #131D2D !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85), 0 0 15px rgba(212, 175, 55, 0.15) !important;
+  font-family: var(--font-family) !important;
+  margin-top: 4px !important;
+  z-index: 99999 !important;
+}
+
+.pac-item {
+  padding: 0.75rem 1rem !important;
+  color: #9DB2C6 !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.12) !important;
+  cursor: pointer !important;
+  font-size: 0.92rem !important;
+  line-height: 1.4 !important;
+}
+
+.pac-item:first-child {
+  border-top: none !important;
+}
+
+.pac-item:hover,
+.pac-item-selected {
+  background-color: #1B263B !important;
+  color: #F8F9FA !important;
+}
+
+.pac-item-query {
+  color: #D4AF37 !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  padding-right: 0.35rem !important;
+}
+
+.pac-matched {
+  color: #FFF1C5 !important;
+  font-weight: 700 !important;
+}
+
+.pac-icon {
+  filter: invert(80%) sepia(50%) saturate(1000%) hue-rotate(5deg) brightness(100%) contrast(100%) !important;
+}
+
+.pac-logo::after {
+  filter: invert(1) brightness(0.8);
+}
+
 /* Form Validation & Error Styles */
 .field-error {
   color: #ff6b6b;

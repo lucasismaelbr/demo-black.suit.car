@@ -207,18 +207,30 @@ const nonUsKeywords = [
 ];
 
 // Validate individual address field (enforces US locations)
-function validateAddressField(input, errorElementId) {
+function validateAddressField(input, errorElementId, isSubmitting = false) {
+  if (!input) return true;
   const errorEl = document.getElementById(errorElementId);
   const val = input.value.trim();
 
+  // If empty: only show error if user is submitting the form
   if (!val) {
-    if (errorEl) {
-      errorEl.textContent = currentTranslations['addressRequiredError'] || 'Please enter a location.';
-      errorEl.classList.add('is-visible');
+    if (isSubmitting) {
+      if (errorEl) {
+        errorEl.textContent = currentTranslations['addressRequiredError'] || 'Please enter a location.';
+        errorEl.classList.add('is-visible');
+      }
+      input.classList.add('input-error');
+      input.setCustomValidity(currentTranslations['addressRequiredError'] || 'Please enter a location.');
+      return false;
+    } else {
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.classList.remove('is-visible');
+      }
+      input.classList.remove('input-error');
+      input.setCustomValidity('');
+      return true;
     }
-    input.classList.add('input-error');
-    input.setCustomValidity(currentTranslations['addressRequiredError'] || 'Please enter a location.');
-    return false;
   }
 
   // Check for non-US keywords
@@ -264,42 +276,42 @@ function initMapsAutocomplete() {
   const dropoff = document.getElementById('dropoff');
 
   if (pickup) {
-    const autoPickup = new google.maps.places.Autocomplete(pickup, opts);
-    autoPickup.addListener('place_changed', function () {
-      const place = autoPickup.getPlace();
-      handlePlaceSelection(pickup, place, 'pickupError');
-    });
-    pickup.addEventListener('blur', () => validateAddressField(pickup, 'pickupError'));
-    pickup.addEventListener('input', () => {
-      const errorEl = document.getElementById('pickupError');
-      if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('is-visible'); }
-      pickup.classList.remove('input-error');
-      pickup.setCustomValidity('');
-    });
+    try {
+      const autoPickup = new google.maps.places.Autocomplete(pickup, opts);
+      autoPickup.addListener('place_changed', function () {
+        const place = autoPickup.getPlace();
+        handlePlaceSelection(pickup, place, 'pickupError');
+      });
+    } catch (e) {
+      console.warn('Google Places Autocomplete init error for pickup:', e);
+    }
   }
 
   if (dropoff) {
-    const autoDropoff = new google.maps.places.Autocomplete(dropoff, opts);
-    autoDropoff.addListener('place_changed', function () {
-      const place = autoDropoff.getPlace();
-      handlePlaceSelection(dropoff, place, 'dropoffError');
-    });
-    dropoff.addEventListener('blur', () => validateAddressField(dropoff, 'dropoffError'));
-    dropoff.addEventListener('input', () => {
-      const errorEl = document.getElementById('dropoffError');
-      if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('is-visible'); }
-      dropoff.classList.remove('input-error');
-      dropoff.setCustomValidity('');
-    });
+    try {
+      const autoDropoff = new google.maps.places.Autocomplete(dropoff, opts);
+      autoDropoff.addListener('place_changed', function () {
+        const place = autoDropoff.getPlace();
+        handlePlaceSelection(dropoff, place, 'dropoffError');
+      });
+    } catch (e) {
+      console.warn('Google Places Autocomplete init error for dropoff:', e);
+    }
   }
 }
+
+// Suppress Google Maps watermark error popups if domain is not whitelisted
+window.gm_authFailure = function () {
+  console.warn('Google Maps auth notice: Domain pending Google Cloud Console whitelist. Direct input active.');
+  document.querySelectorAll('.pac-container').forEach(el => el.remove());
+};
 
 // Verify place returned by Google Autocomplete has US country code
 function handlePlaceSelection(input, place, errorElementId) {
   const errorEl = document.getElementById(errorElementId);
 
   if (!place || !place.address_components) {
-    return validateAddressField(input, errorElementId);
+    return validateAddressField(input, errorElementId, false);
   }
 
   const countryComp = place.address_components.find(comp =>
@@ -325,6 +337,27 @@ function handlePlaceSelection(input, place, errorElementId) {
     input.classList.remove('input-error');
     input.setCustomValidity('');
   }
+}
+
+// Attach event listeners to address input fields
+function initAddressListeners() {
+  ['pickup', 'dropoff'].forEach(id => {
+    const input = document.getElementById(id);
+    const errorId = id + 'Error';
+    if (!input) return;
+
+    input.addEventListener('input', function () {
+      validateAddressField(input, errorId, false);
+    });
+
+    input.addEventListener('blur', function () {
+      if (input.value.trim() !== '') {
+        validateAddressField(input, errorId, false);
+      }
+    });
+
+    input.addEventListener('focus', lazyLoadMaps, { once: true });
+  });
 }
 
 // Load the Maps script – with US restricted Autocomplete
@@ -505,7 +538,7 @@ function initForm() {
       // 1. Validate Pickup Location (US Only)
       const pickupInput = document.getElementById('pickup');
       if (pickupInput) {
-        const isPickupValid = validateAddressField(pickupInput, 'pickupError');
+        const isPickupValid = validateAddressField(pickupInput, 'pickupError', true);
         if (!isPickupValid) {
           pickupInput.focus();
           return;
@@ -515,7 +548,7 @@ function initForm() {
       // 2. Validate Drop-off Location (US Only)
       const dropoffInput = document.getElementById('dropoff');
       if (dropoffInput) {
-        const isDropoffValid = validateAddressField(dropoffInput, 'dropoffError');
+        const isDropoffValid = validateAddressField(dropoffInput, 'dropoffError', true);
         if (!isDropoffValid) {
           dropoffInput.focus();
           return;
@@ -663,16 +696,12 @@ document.addEventListener('DOMContentLoaded', () => {
   loadTranslations(initialLang);
   setYear();
   initForm();
+  initAddressListeners();
   initMobileMenu();
   initFaqAccordion();
 
   const dateInput = document.getElementById('date');
   if (dateInput) maskDate(dateInput);
-
-  ['pickup', 'dropoff'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('focus', lazyLoadMaps, { once: true });
-  });
 });
 
 // Expose for Maps callback
