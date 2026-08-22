@@ -1,4 +1,8 @@
 {
+  "navHome": "Home",
+  "navServices": "Private Chauffeur Services",
+  "navAbout": "About Us",
+  "navContact": "Contact",
   "heroTitle": "Premium Ride Service",
   "heroSubtitle": "Travel in comfort across the United States.",
   "formTitle": "Reserve Your Ride",
@@ -20,5 +24,13 @@
   "ctaButton": "Check Black Suit Price",
   "calendarHeader": "CHECK IF YOUR DESIRED TIME IS AVAILABLE BEFORE REQUESTING SERVICE.",
   "calendarHours": "Operating Hours: 5:00 AM – 10:00 PM ET",
-  "calendarNote": "Transportation services outside these hours may be available with prior approval."
+  "calendarNote": "Transportation services outside these hours may be available with prior approval.",
+  "footerQuickLinksTitle": "Quick Links",
+  "footerAbout": "About Us",
+  "footerContact": "Contact",
+  "footerServices": "Private Chauffeur Services",
+  "footerTerms": "Terms & Conditions",
+  "footerPrivacy": "Privacy Policy",
+  "footerFaq": "FAQ",
+  "footerRights": "All rights reserved."
 }

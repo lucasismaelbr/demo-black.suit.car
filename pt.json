@@ -1,4 +1,8 @@
 {
+  "navHome": "Início",
+  "navServices": "Serviços de Motorista Particular",
+  "navAbout": "Sobre Nós",
+  "navContact": "Contato",
   "heroTitle": "Serviço de Carro Premium",
   "heroSubtitle": "Viaje com conforto pelos Estados Unidos.",
   "formTitle": "Reserve sua Viagem",
@@ -20,5 +24,13 @@
   "ctaButton": "Ver preço Black Suit",
   "calendarHeader": "VERIFIQUE SE O HORÁRIO DESEJADO ESTÁ DISPONÍVEL ANTES DE SOLICITAR O SERVIÇO.",
   "calendarHours": "Horário de atendimento: 5:00 AM – 10:00 PM (hora de Nova York)",
-  "calendarNote": "Serviços fora desse horário podem estar disponíveis mediante aprovação prévia."
+  "calendarNote": "Serviços fora desse horário podem estar disponíveis mediante aprovação prévia.",
+  "footerQuickLinksTitle": "Links Rápidos",
+  "footerAbout": "Sobre Nós",
+  "footerContact": "Contato",
+  "footerServices": "Serviços de Motorista Particular",
+  "footerTerms": "Termos e Condições",
+  "footerPrivacy": "Política de Privacidade",
+  "footerFaq": "Perguntas Frequentes",
+  "footerRights": "Todos os direitos reservados."
 }

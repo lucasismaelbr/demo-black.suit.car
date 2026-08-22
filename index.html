@@ -12,7 +12,13 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="logo">Black Suit Car</div>
+    <a href="index.html" class="logo">Black Suit Car</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html"    data-i18n="navHome" class="active">Home</a>
+      <a href="services.html" data-i18n="navServices">Private Chauffeur Services</a>
+      <a href="about.html"    data-i18n="navAbout">About Us</a>
+      <a href="contact.html"  data-i18n="navContact">Contact</a>
+    </nav>
     <nav class="lang-switcher" aria-label="Language selector">
       <button class="lang-btn" data-lang="en" aria-label="English">🇺🇸</button>
       <button class="lang-btn" data-lang="pt" aria-label="Português">🇧🇷</button>
@@ -97,7 +103,26 @@
     </div>
 
   <footer class="site-footer">
-    <p>&copy; <span id="year"></span> Black Suit Car. All rights reserved.</p>
+    <div class="footer-inner">
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h3 class="footer-heading" data-i18n="footerQuickLinksTitle">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#about"           data-i18n="footerAbout">About Us</a></li>
+          <li><a href="#contact"         data-i18n="footerContact">Contact</a></li>
+          <li><a href="#services"        data-i18n="footerServices">Private Chauffeur Services</a></li>
+          <li><a href="#terms"           data-i18n="footerTerms">Terms &amp; Conditions</a></li>
+          <li><a href="#privacy"         data-i18n="footerPrivacy">Privacy Policy</a></li>
+          <li><a href="#faq"             data-i18n="footerFaq">FAQ</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Black Suit Car. <span data-i18n="footerRights">All rights reserved.</span></p>
+    </div>
   </footer>
 
   <!-- Custom JS for i18n, date mask, and Google Maps Autocomplete -->

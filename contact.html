@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Contact – Black Suit Car</title>
+  <meta name="description" content="Contact Black Suit Car for private chauffeur bookings and inquiries." />
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">Black Suit Car</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html"    data-i18n="navHome">Home</a>
+      <a href="services.html" data-i18n="navServices">Private Chauffeur Services</a>
+      <a href="about.html"    data-i18n="navAbout">About Us</a>
+      <a href="contact.html"  data-i18n="navContact" class="active">Contact</a>
+    </nav>
+    <nav class="lang-switcher" aria-label="Language selector">
+      <button class="lang-btn" data-lang="en" aria-label="English">🇺🇸</button>
+      <button class="lang-btn" data-lang="pt" aria-label="Português">🇧🇷</button>
+      <span class="lang-indicator" aria-hidden="true">⇄</span>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <section class="page-hero">
+      <h1 data-i18n="contactHeroTitle">Contact Us</h1>
+      <p data-i18n="contactHeroSubtitle">We are available daily from 5:00 AM to 10:00 PM ET.</p>
+    </section>
+
+    <section class="page-section contact-grid">
+      <div class="contact-info">
+        <h2 data-i18n="contactInfoTitle">Get in Touch</h2>
+        <ul class="contact-details">
+          <li>📧 <a href="mailto:info@blacksuitcar.com">info@blacksuitcar.com</a></li>
+          <li>📞 <a href="tel:+15555555555">+1 (555) 555-5555</a></li>
+          <li>🕐 <span data-i18n="contactHours">Mon – Sun: 5:00 AM – 10:00 PM ET</span></li>
+        </ul>
+      </div>
+
+      <div class="contact-form-wrap">
+        <h2 data-i18n="contactFormTitle">Send a Message</h2>
+        <form id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="cName" data-i18n="contactName">Full Name</label>
+            <input type="text" id="cName" name="name" required autocomplete="name" placeholder="John Smith" />
+          </div>
+          <div class="form-group">
+            <label for="cEmail" data-i18n="contactEmail">Email</label>
+            <input type="email" id="cEmail" name="email" required autocomplete="email" placeholder="john@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="cMessage" data-i18n="contactMessage">Message</label>
+            <textarea id="cMessage" name="message" rows="5" required placeholder="How can we help you?"></textarea>
+          </div>
+          <button type="submit" class="cta-button" data-i18n="contactSubmit">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3 class="footer-heading" data-i18n="footerQuickLinksTitle">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="about.html"    data-i18n="footerAbout">About Us</a></li>
+          <li><a href="contact.html"  data-i18n="footerContact">Contact</a></li>
+          <li><a href="services.html" data-i18n="footerServices">Private Chauffeur Services</a></li>
+          <li><a href="terms.html"    data-i18n="footerTerms">Terms &amp; Conditions</a></li>
+          <li><a href="privacy.html"  data-i18n="footerPrivacy">Privacy Policy</a></li>
+          <li><a href="faq.html"      data-i18n="footerFaq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Black Suit Car. <span data-i18n="footerRights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

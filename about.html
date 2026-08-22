@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>About Us – Black Suit Car</title>
+  <meta name="description" content="Learn about Black Suit Car – premium private chauffeur services in the United States." />
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">Black Suit Car</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html"   data-i18n="navHome">Home</a>
+      <a href="services.html" data-i18n="navServices">Private Chauffeur Services</a>
+      <a href="about.html"   data-i18n="navAbout" class="active">About Us</a>
+      <a href="contact.html" data-i18n="navContact">Contact</a>
+    </nav>
+    <nav class="lang-switcher" aria-label="Language selector">
+      <button class="lang-btn" data-lang="en" aria-label="English">🇺🇸</button>
+      <button class="lang-btn" data-lang="pt" aria-label="Português">🇧🇷</button>
+      <span class="lang-indicator" aria-hidden="true">⇄</span>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <section class="page-hero">
+      <h1 data-i18n="aboutHeroTitle">About Us</h1>
+      <p data-i18n="aboutHeroSubtitle">Your Private Driver – Not a Rideshare.</p>
+    </section>
+
+    <section class="page-section">
+      <h2 data-i18n="aboutWhoTitle">Who We Are</h2>
+      <p data-i18n="aboutWhoText">Black Suit Car is a premium private chauffeur service operating across the United States. Founded on the principles of discretion, punctuality, and elegance, we serve executives, families, and international clients who demand the finest ground transportation experience.</p>
+    </section>
+
+    <section class="page-section">
+      <h2 data-i18n="aboutMissionTitle">Our Mission</h2>
+      <p data-i18n="aboutMissionText">To provide a seamless, white-glove transportation experience that exceeds expectations – every ride, every time. We are not a rideshare. We are your dedicated private driver.</p>
+    </section>
+
+    <section class="page-section page-section--grid">
+      <div class="feature-card">
+        <span class="feature-icon">🏆</span>
+        <h3 data-i18n="aboutF1Title">Premium Fleet</h3>
+        <p data-i18n="aboutF1Text">Late-model luxury SUVs and sedans, immaculately maintained.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔒</span>
+        <h3 data-i18n="aboutF2Title">Discretion Guaranteed</h3>
+        <p data-i18n="aboutF2Text">Your privacy is our priority. No data sharing, no rideshare pools.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⏱️</span>
+        <h3 data-i18n="aboutF3Title">Always On Time</h3>
+        <p data-i18n="aboutF3Text">Flight tracking and real-time traffic monitoring ensure zero delays.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3 class="footer-heading" data-i18n="footerQuickLinksTitle">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="about.html"    data-i18n="footerAbout">About Us</a></li>
+          <li><a href="contact.html"  data-i18n="footerContact">Contact</a></li>
+          <li><a href="services.html" data-i18n="footerServices">Private Chauffeur Services</a></li>
+          <li><a href="terms.html"    data-i18n="footerTerms">Terms &amp; Conditions</a></li>
+          <li><a href="privacy.html"  data-i18n="footerPrivacy">Privacy Policy</a></li>
+          <li><a href="faq.html"      data-i18n="footerFaq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Black Suit Car. <span data-i18n="footerRights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

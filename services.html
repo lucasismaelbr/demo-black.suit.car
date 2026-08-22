@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Private Chauffeur Services – Black Suit Car</title>
+  <meta name="description" content="Black Suit Car premium private chauffeur services: airport transfers, corporate rides, one-way trips and more across the United States." />
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">Black Suit Car</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html"    data-i18n="navHome">Home</a>
+      <a href="services.html" data-i18n="navServices" class="active">Private Chauffeur Services</a>
+      <a href="about.html"    data-i18n="navAbout">About Us</a>
+      <a href="contact.html"  data-i18n="navContact">Contact</a>
+    </nav>
+    <nav class="lang-switcher" aria-label="Language selector">
+      <button class="lang-btn" data-lang="en" aria-label="English">🇺🇸</button>
+      <button class="lang-btn" data-lang="pt" aria-label="Português">🇧🇷</button>
+      <span class="lang-indicator" aria-hidden="true">⇄</span>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <section class="page-hero">
+      <h1 data-i18n="servicesHeroTitle">Private Chauffeur Services</h1>
+      <p data-i18n="servicesHeroSubtitle">Luxury ground transportation across the United States.</p>
+    </section>
+
+    <section class="page-section page-section--grid">
+      <div class="feature-card">
+        <span class="feature-icon">✈️</span>
+        <h3 data-i18n="svc1Title">Airport Transfers</h3>
+        <p data-i18n="svc1Text">Door-to-door airport pickup and drop-off with flight tracking and complimentary wait time.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🏢</span>
+        <h3 data-i18n="svc2Title">Corporate Rides</h3>
+        <p data-i18n="svc2Text">Reliable executive transportation for meetings, conferences, and business events.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔄</span>
+        <h3 data-i18n="svc3Title">Round Trips</h3>
+        <p data-i18n="svc3Text">We wait at your destination and bring you back — on your schedule.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📅</span>
+        <h3 data-i18n="svc4Title">Scheduled Returns</h3>
+        <p data-i18n="svc4Text">Book your return in advance and travel with peace of mind.</p>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <h2 data-i18n="servicesCtaTitle">Ready to Book?</h2>
+      <p data-i18n="servicesCtaText">Use our reservation form to check availability and pricing.</p>
+      <a href="index.html#rideForm" class="cta-button" style="display:inline-block;width:auto;padding:0.8rem 2rem;" data-i18n="ctaButton">Check Black Suit Price</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3 class="footer-heading" data-i18n="footerQuickLinksTitle">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="about.html"    data-i18n="footerAbout">About Us</a></li>
+          <li><a href="contact.html"  data-i18n="footerContact">Contact</a></li>
+          <li><a href="services.html" data-i18n="footerServices">Private Chauffeur Services</a></li>
+          <li><a href="terms.html"    data-i18n="footerTerms">Terms &amp; Conditions</a></li>
+          <li><a href="privacy.html"  data-i18n="footerPrivacy">Privacy Policy</a></li>
+          <li><a href="faq.html"      data-i18n="footerFaq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Black Suit Car. <span data-i18n="footerRights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
