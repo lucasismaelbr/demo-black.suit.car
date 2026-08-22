@@ -355,27 +355,16 @@ function initAddressListeners() {
         validateAddressField(input, errorId, false);
       }
     });
-
-    input.addEventListener('focus', lazyLoadMaps, { once: true });
   });
 }
 
-// Load the Maps script – with US restricted Autocomplete
+// Optional Maps script loader (dormant until domain is explicitly authorized in Google Cloud Console)
 function loadMaps() {
-  if (mapsLoaded) return;
-  mapsLoaded = true;
-  const key = 'AIzaSyCRDaJ5YnEcUfOmb4vGbB5m5qDHHfs3_Ms';
-  const s   = document.createElement('script');
-  s.src     = 'https://maps.googleapis.com/maps/api/js?key=' + key
-              + '&libraries=places&callback=initMapsAutocomplete';
-  s.async   = true;
-  s.onerror = () => { mapsLoaded = false; };
-  document.head.appendChild(s);
+  // Kept clean for future Google Cloud Console production deployment
 }
 
-// Lazy-load Maps on focus or user interaction
 function lazyLoadMaps() {
-  loadMaps();
+  // No-op to prevent Google Maps API billing error watermark injection
 }
 
 // Footer year

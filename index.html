@@ -50,21 +50,44 @@
           <div class="form-group">
             <label for="pickup" data-i18n="pickupLabel">Pickup Location (A)</label>
             <input type="text" id="pickup" name="pickup" required
+              list="usLocationsList"
               autocomplete="off"
               spellcheck="false"
               data-i18n-placeholder="pickupPlaceholder"
-              placeholder="Enter pickup location" />
+              placeholder="Enter US pickup location (e.g. airport, hotel)" />
             <span class="field-error" id="pickupError" aria-live="polite"></span>
           </div>
           <div class="form-group">
             <label for="dropoff" data-i18n="dropoffLabel">Drop-off Location (B)</label>
             <input type="text" id="dropoff" name="dropoff" required
+              list="usLocationsList"
               autocomplete="off"
               spellcheck="false"
               data-i18n-placeholder="dropoffPlaceholder"
-              placeholder="Enter drop-off location" />
+              placeholder="Enter US destination address" />
             <span class="field-error" id="dropoffError" aria-live="polite"></span>
           </div>
+
+          <!-- US Popular Airports & City Hubs Suggestions -->
+          <datalist id="usLocationsList">
+            <option value="Miami International Airport (MIA), Miami, FL"></option>
+            <option value="Fort Lauderdale-Hollywood International Airport (FLL), FL"></option>
+            <option value="Orlando International Airport (MCO), Orlando, FL"></option>
+            <option value="John F. Kennedy International Airport (JFK), New York, NY"></option>
+            <option value="LaGuardia Airport (LGA), New York, NY"></option>
+            <option value="Newark Liberty International Airport (EWR), Newark, NJ"></option>
+            <option value="Los Angeles International Airport (LAX), Los Angeles, CA"></option>
+            <option value="Hartsfield-Jackson Atlanta International Airport (ATL), GA"></option>
+            <option value="O'Hare International Airport (ORD), Chicago, IL"></option>
+            <option value="Dallas/Fort Worth International Airport (DFW), TX"></option>
+            <option value="Boston Logan International Airport (BOS), Boston, MA"></option>
+            <option value="San Francisco International Airport (SFO), CA"></option>
+            <option value="South Beach, Miami Beach, FL"></option>
+            <option value="Brickell, Miami, FL"></option>
+            <option value="Manhattan, New York, NY"></option>
+            <option value="Downtown Orlando, FL"></option>
+            <option value="Walt Disney World Resort, Orlando, FL"></option>
+          </datalist>
           <div class="form-row">
             <div class="form-group form-group--half">
               <label for="passengers" data-i18n="passengersLabel">Number of Passengers</label>
