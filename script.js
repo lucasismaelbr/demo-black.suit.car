@@ -73,23 +73,41 @@ function maskDate(input) {
 }
 
 // Google Maps Autocomplete init
+// NOTE: Called by the Maps script callback once it loads successfully.
 function initMapsAutocomplete() {
   if (!window.google || !google.maps || !google.maps.places) return;
-  const opts = { types: ['establishment', 'geocode'], componentRestrictions: { country: 'us' } };
-  new google.maps.places.Autocomplete(document.getElementById('pickup'), opts);
-  new google.maps.places.Autocomplete(document.getElementById('dropoff'), opts);
+  const opts = {
+    types: ['establishment', 'geocode'],
+    componentRestrictions: { country: 'us' }
+  };
+  const pickup  = document.getElementById('pickup');
+  const dropoff = document.getElementById('dropoff');
+  if (pickup)  new google.maps.places.Autocomplete(pickup,  opts);
+  if (dropoff) new google.maps.places.Autocomplete(dropoff, opts);
 }
 
-// Lazy-load Maps script on first focus of location fields
-function lazyLoadMaps() {
+// Load the Maps script – only if the API key is available and the domain is authorized.
+// To activate: call loadMaps() from the console or enable below.
+function loadMaps() {
   if (mapsLoaded) return;
   mapsLoaded = true;
+  // ⚠️  The key below must have the Vercel / production domain
+  //     whitelisted in Google Cloud Console → APIs & Services → Credentials
+  //     before this script is re-enabled in production.
   const key = 'AIzaSyCRDaJ5YnEcUfOmb4vGbB5m5qDHHfs3_Ms';
-  const s = document.createElement('script');
-  s.src = 'https://maps.googleapis.com/maps/api/js?key=' + key + '&libraries=places&callback=initMapsAutocomplete';
-  s.async = true;
-  s.defer = true;
+  const s   = document.createElement('script');
+  s.src     = 'https://maps.googleapis.com/maps/api/js?key=' + key
+              + '&libraries=places&callback=initMapsAutocomplete';
+  s.async   = true;
+  s.onerror = () => { mapsLoaded = false; }; // allow retry
   document.head.appendChild(s);
+}
+
+// Lazy-load Maps ONLY after the domain is whitelisted.
+// Currently disabled to prevent error messages appearing in the input fields.
+function lazyLoadMaps() {
+  // TODO: re-enable when the API key domain restriction is configured.
+  // loadMaps();
 }
 
 // Footer year
